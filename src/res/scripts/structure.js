@@ -1,1 +1,0 @@
-const p = [{ name: "default", bindings: [{ logic: { activation: "", deactivation: "" } }] }]
