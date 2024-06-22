@@ -17,8 +17,8 @@ g.OnEvent("Size", Gui_Size)
 g.Show(Format("w{} h{}", A_ScreenWidth * 0.75, A_ScreenHeight * 0.75))
 wv := WebView2.create(g.Hwnd)
 wv.CoreWebView2.add_WebMessageReceived(WebView2.Handler(WebMessageReceivedEventHandler))
-wv.CoreWebView2.SetVirtualHostNameToFolderMapping("phiz.localhost", A_ScriptDir, 2)
-wv.CoreWebView2.Navigate("https://phiz.localhost/index.html")
+wv.CoreWebView2.SetVirtualHostNameToFolderMapping("face.ahk.localhost", A_ScriptDir, 2)
+wv.CoreWebView2.Navigate("https://face.ahk.localhost/index.html")
 
 WebMessageReceivedEventHandler(handler, ICoreWebView2, WebMessageReceivedEventArgs) {
 	args := WebView2.WebMessageReceivedEventArgs(WebMessageReceivedEventArgs)
