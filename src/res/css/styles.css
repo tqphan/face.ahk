@@ -1,0 +1,100 @@
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  padding-top: 15px;
+}
+
+video {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  width: 100%;
+  height: auto;
+}
+
+.videoView,
+.blend-shapes {
+  position: relative;
+  float: left;
+  margin: 0;
+  cursor: pointer;
+  width: 100%;
+  height: auto;
+}
+
+.output_canvas {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  z-index: 10;
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+}
+
+.blend-shapes-item {
+  display: flex;
+  align-items: center;
+  height: 20px;
+}
+
+.blend-shapes-label {
+  display: flex;
+  width: 120px;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 4px;
+}
+
+.blend-shapes-value {
+  display: flex;
+  height: 16px;
+  align-items: center;
+  background-color: #007f8b;
+}
+
+.progress-bar  {
+  transition: none !important;
+}
+
+.progress {
+  height: 12px;
+}
+
+ 
+/* .form-range::-webkit-slider-thumb {
+  background: #0d6efd;
+  border-radius: 0%;
+  width: 16px;
+  height: 24px;
+  margin-top: -14px;
+}
+
+.form-range::-webkit-slider-thumb:active {
+  background: #0d6efd;
+}
+
+.form-range::-webkit-slider-thumb:focus {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form-range::-webkit-slider-thumb {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+ 
+.form-range::-webkit-slider-runnable-track {
+  color: transparent;
+  background-color: transparent;
+  border-color: transparent;
+} */
+
+.form-switch {
+  transform: scale(2);
+}

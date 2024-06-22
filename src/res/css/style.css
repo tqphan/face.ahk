@@ -1,0 +1,104 @@
+
+body {
+  padding-top: 15px;
+}
+
+video {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  width: 100%;
+  height: auto;
+}
+
+.videoView,
+.blend-shapes {
+  position: relative;
+  float: left;
+  margin: 0;
+  cursor: pointer;
+  width: 100%;
+  height: auto;
+}
+
+.output_canvas {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  z-index: 10;
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+}
+
+.blend-shapes-item {
+  display: flex;
+  align-items: center;
+  height: 20px;
+}
+
+.blend-shapes-label {
+  display: flex;
+  width: 120px;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 4px;
+}
+
+.blend-shapes-value {
+  display: flex;
+  height: 16px;
+  align-items: center;
+  background-color: #007f8b;
+}
+
+.progress-bar  {
+  transition: none !important;
+}
+
+.progress {
+  height: 12px;
+}
+
+ 
+.form-range::-webkit-slider-thumb {
+  background: #0d6efd;
+  border-radius: 0%;
+  width: 16px;
+  height: 24px;
+  margin-top: -14px;
+}
+
+.form-range::-webkit-slider-thumb:active {
+  background: #0d6efd;
+}
+
+.form-range::-webkit-slider-thumb:focus {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form-range::-webkit-slider-thumb {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
+.form-switch {
+  transform: scale(2);
+}
+ 
+.form-range::-webkit-slider-runnable-track {
+  color: transparent;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.create-blendshape-button {
+  transform: rotate(45deg);
+}
+
+.btn-close-yellow {
+  background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fc0'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+}

@@ -1,0 +1,14 @@
+{
+    "en": {
+        "hello" : "Hello!",
+        "welcome": "Welcome to my app!"
+    },
+    "fr": {
+        "hello": "Bonjour!",
+        "welcome": "Bienvenue sur mon appli!"
+    },
+    "it": {
+        "hello": "Ciao!",
+        "welcome": "Benvenuto nella mia app!"
+    }
+}
