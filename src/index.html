@@ -15,60 +15,6 @@
 </head>
 
 <body data-bs-theme="dark" id="app">
-  <datalist id="dl-blendshapes">
-    <option value="_neutral">
-    <option value="browDownLeft">
-    <option value="browDownRight">
-    <option value="browInnerUp">
-    <option value="browOuterUpLeft">
-    <option value="browOuterUpRight">
-    <option value="cheekPuff">
-    <option value="cheekSquintLeft">
-    <option value="cheekSquintRight">
-    <option value="eyeBlinkLeft">
-    <option value="eyeBlinkRight">
-    <option value="eyeLookDownLeft">
-    <option value="eyeLookDownRight">
-    <option value="eyeLookInLeft">
-    <option value="eyeLookInRight">
-    <option value="eyeLookOutLeft">
-    <option value="eyeLookOutRight">
-    <option value="eyeLookUpLeft">
-    <option value="eyeLookUpRight">
-    <option value="eyeSquintLeft">
-    <option value="eyeSquintRight">
-    <option value="eyeWideLeft">
-    <option value="eyeWideRight">
-    <option value="jawForward">
-    <option value="jawLeft">
-    <option value="jawOpen">
-    <option value="jawRight">
-    <option value="mouthClose">
-    <option value="mouthDimpleLeft">
-    <option value="mouthDimpleRight">
-    <option value="mouthFrownLeft">
-    <option value="mouthFrownRight">
-    <option value="mouthFunnel">
-    <option value="mouthLeft">
-    <option value="mouthLowerDownLeft">
-    <option value="mouthLowerDownRight">
-    <option value="mouthPressLeft">
-    <option value="mouthPressRight">
-    <option value="mouthPucker">
-    <option value="mouthRight">
-    <option value="mouthRollLower">
-    <option value="mouthRollUpper">
-    <option value="mouthShrugLower">
-    <option value="mouthShrugUpper">
-    <option value="mouthSmileLeft">
-    <option value="mouthSmileRight">
-    <option value="mouthStretchLeft">
-    <option value="mouthStretchRight">
-    <option value="mouthUpperUpLeft">
-    <option value="mouthUpperUpRight">
-    <option value="noseSneerLeft">
-    <option value="noseSneerRight">
-  </datalist>
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-4">
@@ -109,11 +55,6 @@
 
                 <button class="btn btn-primary" type="button" data-bs-toggle="modal"
                   data-bs-target="#blendshapes-modal">Blendshapes</button>
-
-
-                <button class="btn btn-primary" type="button" data-bs-toggle="modal"
-                  data-bs-target="#settings-editor">Settings</button>
-
                 <div class="hstack gap-3"></div>
 
                 <div id="liveView" class="videoView">
@@ -121,7 +62,6 @@
                   <canvas id="output_canvas" ref="output_canvas" class="output_canvas"></canvas>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -221,122 +161,6 @@
               <ul class="blend-shapes-list" id="video-blend-shapes"></ul>
             </div>
           </section>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!--Settings Modal -->
-  <div class="modal fade" id="settings-editor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5">Modal title</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div id="blendgroup-container" class="d-grid gap-2">
-            <div class="card blendgroup-container">
-              <div class="card-header d-grid blendgroup-header">
-                <div class="row align-items-center p-0 m-0">
-                  <div class="col-auto p-0">
-                    <div class="row">
-                      <div class="col-sm">
-                        <div class="p-2 rounded-1 bg-success" role="status">
-                        </div>
-                      </div>
-                      <div class="col-sm">
-                        <div class="p-2 rounded-1 bg-danger" role="status">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm">
-                  </div>
-                  <div class="col-auto p-0">
-                    <button type="button" class="btn-close"></button>
-                  </div>
-                </div>
-              </div>
-              <div class="d-grid gap-2 card-body blend-shapes-items">
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="card text-center">
-                      <div class="card-body">
-                        <h6 class="card-title">Start</h6>
-                        <p></p>
-                        <div class="mb-3 text-start">
-                          <label class="form-label">Logical Expression</label>
-                          <textarea class="form-control" spellcheck="false" rows="3"></textarea>
-                        </div>
-
-                        <div class="invalid-feedback">
-                          <!-- Please enter a message in the textarea. :class="{is-invalid: (binding.start.fn)}" -->
-                        </div>
-
-                        <p></p>
-
-                        <div class="mb-3 text-start">
-                          <label class="form-label">AutoHotkey Expression</label>
-                          <textarea class="form-control" spellcheck="false" rows="3"></textarea>
-                        </div>
-
-                        <div class="invalid-feedback">
-                          <!-- Please enter a message in the textarea. -->
-                        </div>
-
-                        <p></p>
-
-                        <div class="mb-3 text-start">
-                          <label class="form-label">Debounce (# ms)</label>
-                          <input type="range" class="form-range" min="0" max="1000" step="50">
-                        </div>
-                        <!-- <input type="number" id="quantity" name="quantity" min="0" max="1000" step="50"> -->
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="card text-center">
-                      <div class="card-body">
-                        <h6 class="card-title">Stop</h6>
-                        <p></p>
-                        <div class="mb-3 text-start">
-                          <label class="form-label">Logical Expression</label>
-                          <textarea class="form-control" spellcheck="false" rows="3"></textarea>
-                        </div>
-
-                        <div class="invalid-feedback">
-                          <!-- Please enter a message in the textarea. :class="{is-invalid: (binding.start.fn)}" -->
-                        </div>
-
-                        <p></p>
-
-                        <div class="mb-3 text-start">
-                          <label class="form-label">AutoHotkey Expression</label>
-                          <textarea class="form-control" spellcheck="false" rows="3"></textarea>
-                        </div>
-
-                        <div class="invalid-feedback">
-                          <!-- Please enter a message in the textarea. -->
-                        </div>
-
-                        <p></p>
-
-                        <div class="mb-3 text-start">
-                          <label class="form-label">Debounce (# ms)</label>
-                          <input type="range" class="form-range" min="0" max="1000" step="50">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
