@@ -50,11 +50,11 @@
 
                 <div class="hstack gap-3"></div>
 
-                <input id="webcamButton" type="checkbox" class="btn-check" @click="toggleWebcam">
-                <label class="btn btn-outline-success" for="webcamButton">Toggle Predictions</label>
-
                 <button class="btn btn-primary" type="button" data-bs-toggle="modal" :disabled="!shouldDisabled"
                   data-bs-target="#blendshapes-modal">Blendshapes</button>
+
+                <input id="webcamButton" type="checkbox" class="btn-check" @click="toggleWebcam">
+                <label class="btn btn-outline-success" for="webcamButton">Toggle Predictions</label>
                 <div class="hstack gap-3"></div>
 
                 <div id="liveView" class="videoView">
