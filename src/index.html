@@ -53,7 +53,7 @@
                 <input id="webcamButton" type="checkbox" class="btn-check" @click="toggleWebcam">
                 <label class="btn btn-outline-success" for="webcamButton">Toggle Predictions</label>
 
-                <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                <button class="btn btn-primary" type="button" data-bs-toggle="modal" :disabled="!shouldDisabled"
                   data-bs-target="#blendshapes-modal">Blendshapes</button>
                 <div class="hstack gap-3"></div>
 
@@ -179,11 +179,13 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <input type="text" class="form-control" spellcheck="false" placeholder="Profile Name" v-model="app.modals.name">
+          <input type="text" class="form-control" spellcheck="false" placeholder="Profile Name"
+            v-model="app.modals.name">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="createProfile">Create Profile</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="createProfile">Create
+            Profile</button>
         </div>
       </div>
     </div>
@@ -207,7 +209,8 @@
                 <div class="d-grid gap-1 position-relative">
                   <div class="progress position-relative">
                     <div class="progress-bar bg-success" :style="'width: ' + value + '%;'" role="progressbar"></div>
-                    <div class="justify-content-center align-items-center d-flex position-absolute w-100 h-100">{{ value }}</div>
+                    <div class="justify-content-center align-items-center d-flex position-absolute w-100 h-100">{{ value
+                      }}</div>
                   </div>
                 </div>
               </div>
