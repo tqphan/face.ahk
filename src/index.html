@@ -27,15 +27,15 @@
 
                 <div class="row align-items-center">
                   <div class="col-sm">
-                    <button type="button" class="btn w-100 btn-primary" data-bs-toggle="modal"
+                    <button type="button" class="btn w-100 btn-primary text-nowrap" data-bs-toggle="modal"
                       :disabled="shouldDisabled" data-bs-target="#new-profile-modal">Create Profile</button>
                   </div>
                   <div class="col-sm">
-                    <button type="button" class="btn w-100 btn-success" :disabled="!hasProfiles || shouldDisabled"
+                    <button type="button" class="btn w-100 btn-success text-nowrap" :disabled="!hasProfiles || shouldDisabled"
                       @click="saveProfiles">Save Profile</button>
                   </div>
                   <div class="col-sm">
-                    <button type="button" class="btn w-100 btn-danger" @click="removeProfile"
+                    <button type="button" class="btn w-100 btn-danger text-nowrap" @click="removeProfile"
                       :disabled="!hasProfiles || shouldDisabled">Remove Profile</button>
                   </div>
                 </div>
