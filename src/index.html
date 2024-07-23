@@ -101,21 +101,28 @@
                     <div class="card-body">
                       <h6 class="card-title">Start</h6>
                       <p></p>
-                      <input class="form-control" spellcheck="false" placeholder="Logical Expression"
-                        @change="logicChanged(binding.start)" v-model="binding.start.logic">
-                      <div class="invalid-feedback">
-                        <!-- Please enter a message in the textarea. :class="{is-invalid: (binding.start.fn)}" -->
+                      <div class="mb-3 text-start">
+                        <label class="form-label">JavaScript Expression</label>
+                        <input class="form-control" :class="{'is-invalid': !(binding.start.fn)}" spellcheck="false"
+                          @change="logicChanged(binding.start)" v-model="binding.start.logic">
+                        <div class="invalid-feedback">
+                          Invalid or malformed expression.
+                        </div>
                       </div>
                       <p></p>
-                      <input class="form-control" spellcheck="false" placeholder="Key Binding"
-                        v-model="binding.start.ahk">
-                      <div class="invalid-feedback">
-                        <!-- Please enter a message in the textarea. -->
+                      <div class="mb-3 text-start">
+                        <label class="form-label">SendInput Expression</label>
+                        <input class="form-control" spellcheck="false" v-model="binding.start.ahk">
+                        <div class="invalid-feedback">
+                          <!-- Please enter a message in the textarea. :class="{is-invalid: (binding.start.fn)}" -->
+                        </div>
                       </div>
                       <p></p>
-                      <input type="range" class="form-range" min="0" max="1000" step="50"
-                        v-model="binding.start.debounce">
-                      <!-- <input type="number" id="quantity" name="quantity" min="0" max="1000" step="50"> -->
+                      <div class="mb-3 text-start">
+                        <label class="form-label">Debounce ({{binding.start.debounce}} ms)</label>
+                        <input type="range" class="form-range" min="0" max="1000" step="50"
+                          v-model="binding.start.debounce">
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -124,14 +131,28 @@
                     <div class="card-body">
                       <h6 class="card-title">Stop</h6>
                       <p></p>
-                      <input class="form-control" spellcheck="false" placeholder="Logical Expression"
-                        @change="logicChanged(binding.stop)" v-model="binding.stop.logic">
+                      <div class="mb-3 text-start">
+                        <label class="form-label">JavaScript Expression</label>
+                        <input class="form-control" :class="{'is-invalid': !(binding.stop.fn)}" spellcheck="false"
+                          @change="logicChanged(binding.stop)" v-model="binding.stop.logic">
+                        <div class="invalid-feedback">
+                          Invalid or malformed expression.
+                        </div>
+                      </div>
                       <p></p>
-                      <input class="form-control" spellcheck="false" placeholder="Key Binding"
-                        v-model="binding.stop.ahk">
+                      <div class="mb-3 text-start">
+                        <label class="form-label">SendInput Expression</label>
+                        <input class="form-control" spellcheck="false" v-model="binding.stop.ahk">
+                        <div class="invalid-feedback">
+                          <!-- Please enter a message in the textarea. -->
+                        </div>
+                      </div>
                       <p></p>
-                      <input type="range" class="form-range" min="0" max="1000" step="50"
-                        v-model="binding.stop.debounce">
+                      <div class="mb-3 text-start">
+                        <label class="form-label">Debounce ({{binding.stop.debounce}} ms)</label>
+                        <input type="range" class="form-range" min="0" max="1000" step="50"
+                          v-model="binding.stop.debounce">
+                      </div>
                     </div>
                   </div>
                 </div>
