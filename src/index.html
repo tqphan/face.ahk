@@ -74,18 +74,6 @@
             <div class="card-header d-grid blendgroup-header">
               <div class="row align-items-center p-0 m-0">
                 <div class="col-auto p-0">
-                  <div class="row">
-                    <div class="col-sm">
-                      <div class="p-2 rounded-1 bg-success"
-                        :class="{ 'visually-hidden': (!(binding.start.activated) || !(shouldDisabled)) }" role="status">
-                      </div>
-                    </div>
-                    <div class="col-sm">
-                      <div class="p-2 rounded-1 bg-danger"
-                        :class="{ 'visually-hidden': (!(binding.stop.activated) || !(shouldDisabled)) }" role="status">
-                      </div>
-                    </div>
-                  </div>
                 </div>
                 <div class="col-sm">
                 </div>
@@ -99,7 +87,7 @@
                 <div class="col-sm-6">
                   <div class="card text-center">
                     <div class="card-body">
-                      <h6 class="card-title">Start</h6>
+                      <h6 class="card-title" :class="{ 'text-success': ((binding.start.activated) && (shouldDisabled)) }">Start</h6>
                       <p></p>
                       <div class="mb-3 text-start">
                         <label class="form-label">JavaScript Expression</label>
@@ -129,7 +117,7 @@
                 <div class="col-sm-6">
                   <div class="card text-center">
                     <div class="card-body">
-                      <h6 class="card-title">Stop</h6>
+                      <h6 class="card-title" :class="{ 'text-success': ((binding.stop.activated) && (shouldDisabled)) }">Stop</h6>
                       <p></p>
                       <div class="mb-3 text-start">
                         <label class="form-label">JavaScript Expression</label>
