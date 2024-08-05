@@ -3,8 +3,11 @@
 #Include .\lib\WebView2\webview2.ahk
 #InputLevel 1
 SendLevel 1
+
 class App {
 	static NAME := "face.ahk"
+	static HOST := "face.ahk.localhost"
+	static URL := "https://face.ahk.localhost/index.html"
 }
 
 TraySetIcon("favicon.ico")
@@ -17,8 +20,8 @@ g.OnEvent("Size", Gui_Size)
 g.Show(Format("w{} h{}", A_ScreenWidth * 0.75, A_ScreenHeight * 0.75))
 wv := WebView2.create(g.Hwnd)
 wv.CoreWebView2.add_WebMessageReceived(WebView2.Handler(WebMessageReceivedEventHandler))
-wv.CoreWebView2.SetVirtualHostNameToFolderMapping("face.ahk.localhost", A_ScriptDir, 2)
-wv.CoreWebView2.Navigate("https://face.ahk.localhost/index.html")
+wv.CoreWebView2.SetVirtualHostNameToFolderMapping(App.HOST, A_ScriptDir, 2)
+wv.CoreWebView2.Navigate(App.URL)
 
 WebMessageReceivedEventHandler(handler, ICoreWebView2, WebMessageReceivedEventArgs) {
 	args := WebView2.WebMessageReceivedEventArgs(WebMessageReceivedEventArgs)
