@@ -14,10 +14,13 @@ import {
 //     useOptionalChaining
 // } from "../../lib/filtrex/filtrex.js";
 
-import profile from "../json/profiles.json" with { type: "json" };
-import item from "../json/profile.item.json" with { type: "json" };
-import binding from "../json/binding.json" with { type: "json" };
-import samples from "../json/sample.json" with { type: "json" };
+
+
+import profile from "../json/empty.profile.json" with { type: "json" };
+import item from "../json/empty.item.json" with { type: "json" };
+import binding from "../json/empty.binding.json" with { type: "json" };
+import samples from "../json/blendshapes.samples.json" with { type: "json" };
+import userProfile from "../json/user.profile.json" with { type: "json" };
 
 const application = createApp({
     setup() {
@@ -175,8 +178,11 @@ const application = createApp({
         },
         saveProfiles() {
             try {
-                const parsed = JSON.stringify(this.app.profiles);
+                const parsed = JSON.stringify(this.app.profiles, null, '\t');
                 localStorage.setItem('profiles', parsed);
+               ahk.SaveProfile(parsed);
+                // console.log(parsed);
+                // console.log(localStorage.getItem('profiles'));
             } catch (error) {
                 console.error(error);
             }
@@ -184,8 +190,10 @@ const application = createApp({
         loadProfiles() {
             if (localStorage.getItem('profiles')) {
                 try {
-                    this.app.profiles = JSON.parse(localStorage.getItem('profiles'));
+                    this.app.profiles = userProfile;
+                    // this.app.profiles = JSON.parse(localStorage.getItem('profiles'));
                     this.resetProfiles();
+                    console.log(this.app.profiles);
                 } catch (e) {
                     console.error(error);
                     localStorage.removeItem('profiles');
@@ -233,34 +241,44 @@ const application = createApp({
                 return ret;
         },
         processBinding(binding, results, time) {
-            if(binding.fn && this.ffn(binding.fn, results)) {
-                if(binding.debounce) {
-                    if(!binding.activated) {
-                        if(binding.time) {
-                            if(time - binding.time > binding.debounce) {
-                                window.chrome.webview.postMessage(binding.ahk);
-                                binding.activated = true;
-                            }
-                        }
-                        else {
+            // Check if binding function is valid
+            const validity = binding.fn && this.ffn(binding.fn, results);
+
+            if (validity) {
+                // Only process if not already activated
+                if (!binding.activated) {
+                    if (binding.debounce) {
+                        // For debounced bindings
+                        if (!binding.time) {
+                            // First trigger - start the timer
                             binding.time = time;
+                        } else if (time - binding.time > binding.debounce) {
+                            // Debounce period elapsed - activate
+                            window.chrome.webview.postMessage(binding.ahk);
+                            binding.activated = true;
                         }
-                    }
-                }
-                else {
-                    if(!binding.activated) {
+                    } else {
+                        // Immediate activation for non-debounced bindings
                         window.chrome.webview.postMessage(binding.ahk);
                         binding.activated = true;
                     }
                 }
-            }
-            else {
+            } else {
+                // Reset when condition is no longer met
                 binding.activated = false;
                 binding.time = 0;
             }
+
+            return binding.activated;
         },
         processBindings(bindings, results, time) {
             bindings?.forEach((binding) => {
+                // if(!binding.started) {
+                //     binding.started = this.processBinding(binding.start, results, time)
+                // }
+                // else {
+                //     binding.started = this.processBinding(binding.stop, results, time);
+                // }
                 this.processBinding(binding.start, results, time);
                 this.processBinding(binding.stop, results, time);
             });

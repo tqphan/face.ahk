@@ -17,49 +17,79 @@
 <body data-bs-theme="dark" id="app">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-4 me-0 pe-0">
         <div class="sticky-md-top">
           <div class="card">
             <img src="#" class="card-img-top" alt="">
             <div class="card-body">
-              <div class="d-grid gap-2">
-                <h5 class="card-title">face.ahk</h5>
 
-                <div class="row align-items-center">
+              <div class="container">
+                <div class="row mb-3">
+                  <div class="col">
+                    <h5 class="card-title">face.ahk</h5>
+                  </div>
+                </div>
+
+                <!-- Row with 3 buttons - equal size and spacing -->
+                <div class="row align-items-center g-3 mb-3">
                   <div class="col-sm">
                     <button type="button" class="btn w-100 btn-primary text-nowrap" data-bs-toggle="modal"
                       :disabled="shouldDisabled" data-bs-target="#new-profile-modal">Create Profile</button>
                   </div>
                   <div class="col-sm">
-                    <button type="button" class="btn w-100 btn-success text-nowrap" :disabled="!hasProfiles || shouldDisabled"
-                      @click="saveProfiles">Save Profile</button>
+                    <button type="button" class="btn w-100 btn-success text-nowrap"
+                      :disabled="!hasProfiles || shouldDisabled" @click="saveProfiles">Save Profile</button>
                   </div>
                   <div class="col-sm">
                     <button type="button" class="btn w-100 btn-danger text-nowrap" @click="removeProfile"
                       :disabled="!hasProfiles || shouldDisabled">Remove Profile</button>
                   </div>
                 </div>
-                <div class="hstack gap-3"></div>
 
-                <select class="form-select" :disabled="shouldDisabled" size="3" v-model="app.profiles.selection"
-                  aria-label="select example">
-                  <option v-for="(profile, index) in app.profiles.items" :value="index">
-                    {{ profile.name }}
-                  </option>
-                </select>
+                <!-- Row with list selection box -->
+                <div class="row mb-3">
+                  <div class="col">
+                    <select class="form-select" :disabled="shouldDisabled" size="3" v-model="app.profiles.selection"
+                      aria-label="select example">
+                      <option v-for="(profile, index) in app.profiles.items" :value="index">
+                        {{ profile.name }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
 
-                <div class="hstack gap-3"></div>
+                <!-- Row with full-width button -->
+                <div class="row mb-3">
+                  <div class="col">
+                    <button class="btn w-100 btn-primary" type="button" data-bs-toggle="modal"
+                      :disabled="shouldDisabled" data-bs-target="#settings-modal">Settings</button>
+                  </div>
+                </div>
 
-                <button class="btn btn-primary" type="button" data-bs-toggle="modal" :disabled="!shouldDisabled"
-                  data-bs-target="#blendshapes-modal">Blendshapes</button>
+                <!-- Row with full-width button -->
+                <div class="row mb-3">
+                  <div class="col">
+                    <button class="btn w-100 btn-primary" type="button" data-bs-toggle="modal"
+                      :disabled="!shouldDisabled" data-bs-target="#blendshapes-modal">Blendshapes</button>
+                  </div>
+                </div>
 
-                <input id="webcamButton" type="checkbox" class="btn-check" @click="toggleWebcam">
-                <label class="btn btn-outline-success" for="webcamButton">Toggle Camera Feed</label>
-                <div class="hstack gap-3"></div>
+                <!-- Row with full-width button -->
+                <div class="row mb-3">
+                  <div class="col">
+                    <input id="webcamButton" type="checkbox" class="btn-check" @click="toggleWebcam">
+                    <label class="btn w-100 btn-outline-success" for="webcamButton">Toggle Camera Feed</label>
+                  </div>
+                </div>
 
-                <div id="liveView" class="videoView">
-                  <video id="input_video" ref="input_video" autoplay></video>
-                  <canvas id="output_canvas" ref="output_canvas" class="output_canvas"></canvas>
+                <!-- Row with video feed and face mesh canvas -->
+                <div class="row mb-3">
+                  <div class="col">
+                    <div id="liveView" class="videoView">
+                      <video id="input_video" ref="input_video" autoplay></video>
+                      <canvas id="output_canvas" ref="output_canvas" class="output_canvas"></canvas>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -67,15 +97,20 @@
         </div>
       </div>
       <div class="col-md-8">
-        <div id="blendgroup-container" class="d-grid gap-2" v-if="hasProfiles">
+        <div id="blendgroup-container" class="d-grid gap-3" v-if="hasProfiles">
           <button type="button" class="btn w-100 btn-success" @click="createBinding">Create Binding</button>
           <div class="card blendgroup-container"
             v-for="(binding, index) in app.profiles.items[app.profiles.selection].bindings">
             <div class="card-header d-grid blendgroup-header">
               <div class="row align-items-center p-0 m-0">
                 <div class="col-auto p-0">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" :checked="(binding.enabled)">
+                    <label class="form-check-label">☰⎯</label>
+                  </div>
                 </div>
-                <div class="col-sm">
+                <div class="col text-center p-0">
+                  test
                 </div>
                 <div class="col-auto p-0">
                   <button type="button" class="btn-close" @click="removeBinding(index)"></button>
@@ -87,7 +122,8 @@
                 <div class="col-sm-6">
                   <div class="card text-center">
                     <div class="card-body">
-                      <h6 class="card-title" :class="{ 'text-success': ((binding.start.activated) && (shouldDisabled)) }">Start</h6>
+                      <h6 class="card-title"
+                        :class="{ 'text-success': ((binding.start.activated) && (shouldDisabled)) }">Start</h6>
                       <p></p>
                       <div class="mb-3 text-start">
                         <label class="form-label">JavaScript Expression</label>
@@ -117,7 +153,8 @@
                 <div class="col-sm-6">
                   <div class="card text-center">
                     <div class="card-body">
-                      <h6 class="card-title" :class="{ 'text-success': ((binding.stop.activated) && (shouldDisabled)) }">Stop</h6>
+                      <h6 class="card-title"
+                        :class="{ 'text-success': ((binding.stop.activated) && (shouldDisabled)) }">Stop</h6>
                       <p></p>
                       <div class="mb-3 text-start">
                         <label class="form-label">JavaScript Expression</label>
@@ -157,130 +194,114 @@
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="settings-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Settings</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <section id="demos">
-            <div class="blend-shapes">
-              <ul class="blend-shapes-list" id="video-blend-shapes"></ul>
+          <div class="container">
+            <div class="options-container">
+              <form>
+                <!-- Theme Dropdown -->
+                <div class="mb-4">
+                  <label for="themeSelect" class="form-label">Theme</label>
+                  <select class="form-select" id="themeSelect" aria-label="Theme selection">
+                    <option value="system">System</option>
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                  </select>
+                </div>
+
+                <!-- Checkboxes -->
+                <div class="mb-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="advanceBindings">
+                    <label class="form-check-label" for="advanceBindings">
+                      Show Advance Bindings
+                    </label>
+                  </div>
+
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="showCameraFeed">
+                    <label class="form-check-label" for="showCameraFeed">
+                      Show Camera Feed
+                    </label>
+                  </div>
+
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="showLandmarksOverlay">
+                    <label class="form-check-label" for="showLandmarksOverlay">
+                      Show Landmarks Overlay
+                    </label>
+                  </div>
+                </div>
+              </form>
             </div>
-          </section>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- New Profile Modal -->
-  <div class="modal fade" id="new-profile-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Create New Profile</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <input type="text" class="form-control" spellcheck="false" placeholder="Profile Name"
-            v-model="app.modals.name">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="createProfile">Create
-            Profile</button>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!--Blendshapes Modal -->
-  <div class="modal fade" id="blendshapes-modal" tabindex="-1" aria-labelledby="blendshapes modal" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5">Blendshapes</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- New Profile Modal -->
+    <div class="modal fade" id="new-profile-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Create New Profile</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input type="text" class="form-control" spellcheck="false" placeholder="Profile Name"
+              v-model="app.modals.name">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="createProfile">Create
+              Profile</button>
+          </div>
         </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <div v-for="(value, key) in mp.bs" class="row align-items-center p-0 m-0 blendshape-item">
-              <div class="col-3 text-right">
-                {{ key }}
-              </div>
-              <div class="col-9">
-                <div class="d-grid gap-1 position-relative">
-                  <div class="progress position-relative">
-                    <div class="progress-bar bg-success" :style="'width: ' + value + '%;'" role="progressbar"></div>
-                    <div class="justify-content-center align-items-center d-flex position-absolute w-100 h-100">{{ value
-                      }}</div>
+      </div>
+    </div>
+
+    <!--Blendshapes Modal -->
+    <div class="modal fade" id="blendshapes-modal" tabindex="-1" aria-labelledby="blendshapes modal" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5">Blendshapes</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <div v-for="(value, key) in mp.bs" class="row align-items-center p-0 m-0 blendshape-item">
+                <div class="col-3 text-right">
+                  {{ key }}
+                </div>
+                <div class="col-9">
+                  <div class="d-grid gap-1 position-relative">
+                    <div class="progress position-relative">
+                      <div class="progress-bar bg-success" :style="'width: ' + value + '%;'" role="progressbar"></div>
+                      <div class="justify-content-center align-items-center d-flex position-absolute w-100 h-100">{{
+                        value
+                        }}</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <template id="blendgroup-template">
-    <div class="card blendgroup-container">
-      <div class="card-header d-grid blendgroup-header">
-        <div class="row align-items-center p-0 m-0">
-          <div class="col-auto p-0">
-            <button type="button" class="btn-close create-blendshape-button remove-blendgroup-button"></button>
-          </div>
-          <div class="col-sm">
-            <input class="form-control" spellcheck="false" placeholder="Activation Logic">
-          </div>
-          <div class="col-sm">
-            <input class="form-control" spellcheck="false" placeholder="Deactivation Logic">
-          </div>
-          <div class="col-sm">
-            <input class="form-control" spellcheck="false" placeholder="Activation Key">
-          </div>
-          <div class="col-sm">
-            <input class="form-control" spellcheck="false" placeholder="Deactivation Key">
-          </div>
-          <div class="col-auto p-0">
-            <button type="button" class="btn-close remove-blendgroup-button"></button>
-          </div>
-        </div>
-      </div>
-      <div class="d-grid gap-2 card-body blend-shapes-items">
-
-      </div>
-    </div>
-  </template>
-
-  <template id="blendshape-template">
-    <div class="row align-items-center p-0 m-0 blendshape-item">
-      <div class="col-auto">
-        <input class="form-control" spellcheck="false" list="dl-blendshapes" placeholder="Blendshape...">
-      </div>
-      <div class="col-md">
-        <div class="d-grid gap-1 position-relative">
-          <div class="progress">
-            <div class="progress-bar bg-warning" role="progressbar"></div>
-          </div>
-          <input type="range" class="form-range position-absolute">
-        </div>
-      </div>
-      <div class="col-auto p-0">
-        <button type="button" class="btn-close remove-blendshape-button" aria-label="Close"></button>
-      </div>
-    </div>
-  </template>
 
 </body>
 

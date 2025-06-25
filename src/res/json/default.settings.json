@@ -1,0 +1,14 @@
+{
+    "theme": {
+        "options": [
+            "system",
+            "dark",
+            "light"
+        ],
+        "current": "system",
+        "previous": "system",
+        "default": "system",
+        "description": "THEME_DESCRIPTION"
+    },
+    "h": ""
+}

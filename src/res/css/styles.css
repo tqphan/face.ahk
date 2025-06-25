@@ -13,6 +13,7 @@ video {
   -moz-transform: rotateY(180deg);
   width: 100%;
   height: auto;
+  visibility: hidden;
 }
 
 .videoView,
@@ -95,6 +96,10 @@ video {
   border-color: transparent;
 } */
 
-.form-switch {
+/* .form-switch {
   transform: scale(2);
+} */
+
+.nowrap {
+  white-space: nowrap;
 }
