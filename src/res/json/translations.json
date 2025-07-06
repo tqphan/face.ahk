@@ -1,13 +1,20 @@
 {
     "en": {
+        "name" : "English",
         "hello" : "Hello!",
-        "welcome": "Welcome to my app!"
+        "welcome": "Welcome to my app!",
+        "theme" : "Theme",
+        "tracking": "",
+        "presence": "",
+        "detection": ""
     },
     "fr": {
+        "name" : "Français",
         "hello": "Bonjour!",
         "welcome": "Bienvenue sur mon appli!"
     },
     "it": {
+        "name" : "Italiano",
         "hello": "Ciao!",
         "welcome": "Benvenuto nella mia app!"
     }

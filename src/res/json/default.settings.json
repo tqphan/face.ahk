@@ -1,14 +1,7 @@
 {
-    "theme": {
-        "options": [
-            "system",
-            "dark",
-            "light"
-        ],
-        "current": "system",
-        "previous": "system",
-        "default": "system",
-        "description": "THEME_DESCRIPTION"
-    },
-    "h": ""
+    "theme": "dark",
+    "language": "en",
+    "startup_webcam_enabled": false,
+    "advance_bindings_enabled": false
+
 }

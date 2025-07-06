@@ -9,34 +9,34 @@ import {
     DrawingUtils
 } from "../../lib/MediaPipe/vision_bundle.js";
 
-// import {
-//     compileExpression,
-//     useOptionalChaining
-// } from "../../lib/filtrex/filtrex.js";
-
-
-
-import profile from "../json/empty.profile.json" with { type: "json" };
+import empty from "../json/empty.profile.json" with { type: "json" };
 import item from "../json/empty.item.json" with { type: "json" };
 import binding from "../json/empty.binding.json" with { type: "json" };
 import samples from "../json/blendshapes.samples.json" with { type: "json" };
-import userProfile from "../json/user.profile.json" with { type: "json" };
+import profiles from "../json/user.profiles.json" with { type: "json" };
+import settings from "../json/user.settings.json" with { type: "json" };
+import translations from "../json/translations.json" with { type: "json" };
+
+const json = { settings, translations };
 
 const application = createApp({
     setup() {
-        const app = ref({ modals: { name: "default" }, profiles: structuredClone(profile) });
-        const mp = ref({ faceLandmarker: null, drawingUtils: null, results: structuredClone(samples), bs: {} });
+        const app = ref({ modals: { name: "default" }, profiles: structuredClone(empty) });
+        const mediapipe = ref({ faceLandmarker: null, drawingUtils: null, results: structuredClone(samples), bs: {} });
         const predicting = ref(false);
+        const settings = ref(structuredClone(json.settings));
+        const translations = ref(structuredClone(json.translations));
         return {
-            app, mp, predicting
+            app, mp: mediapipe, predicting, settings, translations
         };
     },
     async mounted() {
         const ctx = this.$refs.output_canvas.getContext("2d");
         this.mp.drawingUtils = new DrawingUtils(ctx);
+        this.loadSettings();
         this.loadProfiles();
-        await this.init();
         this.$refs.input_video.requestVideoFrameCallback(this.predict);
+        await this.init();
     },
     computed: {
         hasProfiles() {
@@ -70,6 +70,9 @@ const application = createApp({
             if (!this.mp.faceLandmarker) {
                 console.log("Wait for faceLandmarker to load before clicking!");
                 return;
+            }
+            if (this.settings.prediction.startup.enabled) {
+                this.toggleWebcam();
             }
         },
         async predict() {
@@ -135,6 +138,19 @@ const application = createApp({
         testing() {
             console.log("69");
         },
+        loadSettings() {
+            try {
+                this.settings = json.settings;
+                console.log(this.settings);
+            } catch (error) {
+                console.error(error);
+                this.settings = structuredClone(settings);
+            }
+        },
+        saveSettings() {
+            const parsed = JSON.stringify(this.settings, null, '\t');
+            ahk.SaveSettings(parsed);
+        },
         inputChanged(event) {
             const newValue = event.target.value;
             this.app.profiles.selection = newValue;
@@ -179,10 +195,8 @@ const application = createApp({
         saveProfiles() {
             try {
                 const parsed = JSON.stringify(this.app.profiles, null, '\t');
-                localStorage.setItem('profiles', parsed);
-               ahk.SaveProfile(parsed);
-                // console.log(parsed);
-                // console.log(localStorage.getItem('profiles'));
+                // localStorage.setItem('profiles', parsed);
+                ahk.SaveProfiles(parsed);
             } catch (error) {
                 console.error(error);
             }
@@ -190,14 +204,13 @@ const application = createApp({
         loadProfiles() {
             if (localStorage.getItem('profiles')) {
                 try {
-                    this.app.profiles = userProfile;
+                    this.app.profiles = profiles;
                     // this.app.profiles = JSON.parse(localStorage.getItem('profiles'));
                     this.resetProfiles();
-                    console.log(this.app.profiles);
                 } catch (e) {
                     console.error(error);
                     localStorage.removeItem('profiles');
-                    this.app.profiles = structuredClone(profile);
+                    this.app.profiles = structuredClone(empty);
                 }
             }
         },

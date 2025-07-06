@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Translation Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>Vue.js Translation Demo</h1>
+        
+        <div>
+            <label>Language: </label>
+            <select v-model="currentLanguage">
+                <option v-for="(langData, langCode) in translations" :key="langCode" :value="langCode">
+                    {{ langData.name }}
+                </option>
+            </select>
+        </div>
+        
+        <div>
+            <h2>{{ t('hello') }}</h2>
+            <p>{{ t('welcome') }}</p>
+        </div>
+    </div>
+
+    <script>
+        const { createApp, ref } = Vue;
+
+        createApp({
+            setup() {
+                const translations = {
+                    "en": {
+                        "name": "English",
+                        "hello": "Hello!",
+                        "welcome": "Welcome to my app!"
+                    },
+                    "fr": {
+                        "name": "Français",
+                        "hello": "Bonjour!",
+                        "welcome": "Bienvenue sur mon appli!"
+                    },
+                    "it": {
+                        "name": "Italiano",
+                        "hello": "Ciao!",
+                        "welcome": "Benvenuto nella mia app!"
+                    }
+                };
+
+                const currentLanguage = ref('en');
+
+                const t = (key) => {
+                    return translations[currentLanguage.value]?.[key] || key;
+                };
+
+                return {
+                    currentLanguage,
+                    translations,
+                    t
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

@@ -26,7 +26,7 @@
               <div class="container">
                 <div class="row mb-3">
                   <div class="col">
-                    <h5 class="card-title">face.ahk</h5>
+                    <h5 class="card-title">face.ahk {{ translations[settings.language].hello }}</h5>
                   </div>
                 </div>
 
@@ -49,7 +49,7 @@
                 <!-- Row with list selection box -->
                 <div class="row mb-3">
                   <div class="col">
-                    <select class="form-select" :disabled="shouldDisabled" size="3" v-model="app.profiles.selection"
+                    <select class="form-select" :disabled="shouldDisabled" size="8" v-model="app.profiles.selection"
                       aria-label="select example">
                       <option v-for="(profile, index) in app.profiles.items" :value="index">
                         {{ profile.name }}
@@ -193,7 +193,7 @@
     </div>
   </div>
 
-  <!-- Modal -->
+  <!--Settings Modal -->
   <div class="modal fade" id="settings-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -242,7 +242,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <button type="submit" class="btn btn-primary" @click="saveSettings">Save Changes</button>
           </div>
         </div>
       </div>
