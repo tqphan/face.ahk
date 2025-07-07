@@ -1,21 +1,34 @@
 {
     "en": {
-        "name" : "English",
-        "hello" : "Hello!",
-        "welcome": "Welcome to my app!",
-        "theme" : "Theme",
-        "tracking": "",
-        "presence": "",
-        "detection": ""
-    },
-    "fr": {
-        "name" : "Français",
-        "hello": "Bonjour!",
-        "welcome": "Bienvenue sur mon appli!"
-    },
-    "it": {
-        "name" : "Italiano",
-        "hello": "Ciao!",
-        "welcome": "Benvenuto nella mia app!"
+        "NAME": "English",
+        "HELLO": "Hello!",
+        "WELCOME": "Welcome to my app!",
+        "SETTINGS": "Settings",
+        "SAVE_CHANGES": "Save Changes",
+        "BLENDSHAPES": "Blendshapes",
+        "THEME": "Theme",
+        "TRACKING_CONFIDENCE": "Minimum tracking confidence",
+        "PRESENCE_CONFIDENCE": "Minimum face presence confidence",
+        "DETECTION_CONFIDENCE": "Minimum face detection confidence",
+        "START": "Start",
+        "STOP": "Stop",
+        "CLOSE": "Close",
+        "CREATE_PROFILE": "Create Profile",
+        "REMOVE_PROFILE": "Remove Profile",
+        "SAVE_PROFILE": "Save Profile",
+        "PROFILE_TIP": "Create a profile to get started.",
+        "CREATE_BINDING": "Create Binding",
+        "REMOVE_BINDING": "Remove Binding",
+        "JAVASCRIPT_EXPRESSION": "JavaScript Expression",
+        "SENDINPUT_EXPRESSION": "SendInput Expression",
+        "INVALID_EXPRESSION": "Invalid Expression",
+        "DEBOUNCE": "Debounce",
+        "MILLISECONDS": " ms",
+        "TOGGLE_PREDICTIONS": "Toggle Predictions",
+        "WEBCAM_OPACITY": "Webcam Opacity",
+        "LANDMARKS_OPACITY": "Landmarks Opacity",
+        "AUTO_START_PREDICTIONS": "Auto Start Prediction",
+        "AUTO_START_WITH_WINDOWS": "Auto Start with Windows",
+        "RUN_ON_SECURED_DESKTOP": "Run on Secured Desktop"
     }
 }

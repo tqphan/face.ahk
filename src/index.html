@@ -26,27 +26,31 @@
               <div class="container">
                 <div class="row mb-3">
                   <div class="col">
-                    <h5 class="card-title">face.ahk {{ translations[settings.language].hello }}</h5>
+                    <h5 class="card-title">face.ahk</h5>
                   </div>
                 </div>
 
-                <!-- Row with 3 buttons - equal size and spacing -->
                 <div class="row align-items-center g-3 mb-3">
                   <div class="col-sm">
                     <button type="button" class="btn w-100 btn-primary text-nowrap" data-bs-toggle="modal"
-                      :disabled="shouldDisabled" data-bs-target="#new-profile-modal">Create Profile</button>
+                      :disabled="shouldDisabled" data-bs-target="#new-profile-modal">
+                      {{ translations[settings.language].CREATE_PROFILE }}
+                    </button>
                   </div>
                   <div class="col-sm">
                     <button type="button" class="btn w-100 btn-success text-nowrap"
-                      :disabled="!hasProfiles || shouldDisabled" @click="saveProfiles">Save Profile</button>
+                      :disabled="!hasProfiles || shouldDisabled" @click="saveProfiles">
+                      {{ translations[settings.language].SAVE_PROFILE }}
+                    </button>
                   </div>
                   <div class="col-sm">
                     <button type="button" class="btn w-100 btn-danger text-nowrap" @click="removeProfile"
-                      :disabled="!hasProfiles || shouldDisabled">Remove Profile</button>
+                      :disabled="!hasProfiles || shouldDisabled">
+                      {{ translations[settings.language].REMOVE_PROFILE }}
+                    </button>
                   </div>
                 </div>
 
-                <!-- Row with list selection box -->
                 <div class="row mb-3">
                   <div class="col">
                     <select class="form-select" :disabled="shouldDisabled" size="8" v-model="app.profiles.selection"
@@ -58,27 +62,30 @@
                   </div>
                 </div>
 
-                <!-- Row with full-width button -->
                 <div class="row mb-3">
                   <div class="col">
-                    <button class="btn w-100 btn-primary" type="button" data-bs-toggle="modal"
-                      :disabled="shouldDisabled" data-bs-target="#settings-modal">Settings</button>
+                    <button class="btn w-100 btn-info" type="button" data-bs-toggle="modal"
+                      data-bs-target="#settings-modal">
+                      {{ translations[settings.language].SETTINGS }}
+                    </button>
                   </div>
                 </div>
 
-                <!-- Row with full-width button -->
                 <div class="row mb-3">
                   <div class="col">
                     <button class="btn w-100 btn-primary" type="button" data-bs-toggle="modal"
-                      :disabled="!shouldDisabled" data-bs-target="#blendshapes-modal">Blendshapes</button>
+                      :disabled="!shouldDisabled" data-bs-target="#blendshapes-modal">
+                      {{ translations[settings.language].BLENDSHAPES }}
+                    </button>
                   </div>
                 </div>
 
-                <!-- Row with full-width button -->
                 <div class="row mb-3">
                   <div class="col">
                     <input id="webcamButton" type="checkbox" class="btn-check" @click="toggleWebcam">
-                    <label class="btn w-100 btn-outline-success" for="webcamButton">Toggle Camera Feed</label>
+                    <label class="btn w-100 btn-outline-success" for="webcamButton">
+                      {{ translations[settings.language].TOGGLE_PREDICTIONS }}
+                    </label>
                   </div>
                 </div>
 
@@ -98,7 +105,9 @@
       </div>
       <div class="col-md-8">
         <div id="blendgroup-container" class="d-grid gap-3" v-if="hasProfiles">
-          <button type="button" class="btn w-100 btn-success" @click="createBinding">Create Binding</button>
+          <button type="button" class="btn w-100 btn-success" @click="createBinding">
+            {{ translations[settings.language].CREATE_BINDING }}
+          </button>
           <div class="card blendgroup-container"
             v-for="(binding, index) in app.profiles.items[app.profiles.selection].bindings">
             <div class="card-header d-grid blendgroup-header">
@@ -109,9 +118,9 @@
                     <label class="form-check-label">☰⎯</label>
                   </div>
                 </div>
-                <div class="col text-center p-0">
+                <!-- <div class="col text-center p-0">
                   test
-                </div>
+                </div> -->
                 <div class="col-auto p-0">
                   <button type="button" class="btn-close" @click="removeBinding(index)"></button>
                 </div>
@@ -123,19 +132,25 @@
                   <div class="card text-center">
                     <div class="card-body">
                       <h6 class="card-title"
-                        :class="{ 'text-success': ((binding.start.activated) && (shouldDisabled)) }">Start</h6>
+                        :class="{ 'text-success': ((binding.start.activated) && (shouldDisabled)) }">
+                        {{ translations[settings.language].START }}
+                      </h6>
                       <p></p>
                       <div class="mb-3 text-start">
-                        <label class="form-label">JavaScript Expression</label>
+                        <label class="form-label">
+                          {{ translations[settings.language].JAVASCRIPT_EXPRESSION }}
+                        </label>
                         <input class="form-control" :class="{'is-invalid': !(binding.start.fn)}" spellcheck="false"
                           @change="logicChanged(binding.start)" v-model="binding.start.logic">
                         <div class="invalid-feedback">
-                          Invalid or malformed expression.
+                          {{ translations[settings.language].INVALID_EXPRESSION }}
                         </div>
                       </div>
                       <p></p>
                       <div class="mb-3 text-start">
-                        <label class="form-label">SendInput Expression</label>
+                        <label class="form-label">
+                          {{ translations[settings.language].SENDINPUT_EXPRESSION }}
+                        </label>
                         <input class="form-control" spellcheck="false" v-model="binding.start.ahk">
                         <div class="invalid-feedback">
                           <!-- Please enter a message in the textarea. :class="{is-invalid: (binding.start.fn)}" -->
@@ -143,7 +158,8 @@
                       </div>
                       <p></p>
                       <div class="mb-3 text-start">
-                        <label class="form-label">Debounce ({{binding.start.debounce}} ms)</label>
+                        <label class="form-label">{{ translations[settings.language].DEBOUNCE }}
+                          ({{binding.start.debounce}} {{ translations[settings.language].MILLISECONDS }})</label>
                         <input type="range" class="form-range" min="0" max="1000" step="50"
                           v-model="binding.start.debounce">
                       </div>
@@ -154,19 +170,25 @@
                   <div class="card text-center">
                     <div class="card-body">
                       <h6 class="card-title"
-                        :class="{ 'text-success': ((binding.stop.activated) && (shouldDisabled)) }">Stop</h6>
+                        :class="{ 'text-success': ((binding.stop.activated) && (shouldDisabled)) }">
+                        {{ translations[settings.language].STOP }}
+                      </h6>
                       <p></p>
                       <div class="mb-3 text-start">
-                        <label class="form-label">JavaScript Expression</label>
+                        <label class="form-label">
+                          {{ translations[settings.language].JAVASCRIPT_EXPRESSION }}
+                        </label>
                         <input class="form-control" :class="{'is-invalid': !(binding.stop.fn)}" spellcheck="false"
                           @change="logicChanged(binding.stop)" v-model="binding.stop.logic">
                         <div class="invalid-feedback">
-                          Invalid or malformed expression.
+                          {{ translations[settings.language].INVALID_EXPRESSION }}
                         </div>
                       </div>
                       <p></p>
                       <div class="mb-3 text-start">
-                        <label class="form-label">SendInput Expression</label>
+                        <label class="form-label">
+                          {{ translations[settings.language].SENDINPUT_EXPRESSION }}
+                        </label>
                         <input class="form-control" spellcheck="false" v-model="binding.stop.ahk">
                         <div class="invalid-feedback">
                           <!-- Please enter a message in the textarea. -->
@@ -174,7 +196,8 @@
                       </div>
                       <p></p>
                       <div class="mb-3 text-start">
-                        <label class="form-label">Debounce ({{binding.stop.debounce}} ms)</label>
+                        <label class="form-label">{{ translations[settings.language].DEBOUNCE }}
+                          ({{binding.stop.debounce}} {{ translations[settings.language].MILLISECONDS }})</label>
                         <input type="range" class="form-range" min="0" max="1000" step="50"
                           v-model="binding.stop.debounce">
                       </div>
@@ -187,18 +210,22 @@
         </div>
 
         <div v-else class="d-flex flex-column h-100 justify-content-center align-items-center">
-          <h5>Create a profile to get started.</h5>
+          <h5>
+            {{ translations[settings.language].PROFILE_TIP }}
+          </h5>
         </div>
       </div>
     </div>
   </div>
 
   <!--Settings Modal -->
-  <div class="modal fade" id="settings-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="settings-modal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Settings</h1>
+          <h1 class="modal-title fs-5">
+            {{ translations[settings.language].SETTINGS }}
+          </h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -207,102 +234,124 @@
               <form>
                 <!-- Theme Dropdown -->
                 <div class="mb-4">
-                  <label for="themeSelect" class="form-label">Theme</label>
-                  <select class="form-select" id="themeSelect" aria-label="Theme selection">
+                  <label for="themeSelect" class="form-label">
+                    {{ translations[settings.language].THEME }}
+                  </label>
+                  <select class="form-select">
                     <option value="system">System</option>
                     <option value="light">Light</option>
                     <option value="dark">Dark</option>
                   </select>
                 </div>
-
-                <!-- Checkboxes -->
                 <div class="mb-4">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="advanceBindings">
-                    <label class="form-check-label" for="advanceBindings">
-                      Show Advance Bindings
+                    <input class="form-check-input" type="checkbox" value="">
+                    <label class="form-check-label">
+                      {{ translations[settings.language].AUTO_START_PREDICTIONS }}
                     </label>
                   </div>
-
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="showCameraFeed">
-                    <label class="form-check-label" for="showCameraFeed">
-                      Show Camera Feed
+                    <input class="form-check-input" type="checkbox" value="">
+                    <label class="form-check-label">
+                      {{ translations[settings.language].AUTO_START_WITH_WINDOWS }}
                     </label>
                   </div>
-
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="showLandmarksOverlay">
-                    <label class="form-check-label" for="showLandmarksOverlay">
-                      Show Landmarks Overlay
+                    <input class="form-check-input" type="checkbox" value="">
+                    <label class="form-check-label">
+                      {{ translations[settings.language].RUN_ON_SECURED_DESKTOP }}
                     </label>
                   </div>
+                  <label class="form-label">{{ translations[settings.language].WEBCAM_OPACITY }}</label>
+                  <input type="range" class="form-range" min="0.0" max="1.0" step="0.01">
+
+                  <label class="form-label">{{ translations[settings.language].LANDMARKS_OPACITY }}</label>
+                  <input type="range" class="form-range" min="0.0" max="1.0" step="0.01">
+
+                  <label class="form-label">{{ translations[settings.language].TRACKING_CONFIDENCE }}</label>
+                  <input type="range" class="form-range" min="0.0" max="1.0" step="0.01">
+
+                  <label class="form-label">{{ translations[settings.language].PRESENCE_CONFIDENCE }}</label>
+                  <input type="range" class="form-range" min="0.0" max="1.0" step="0.01">
+
+                  <label class="form-label">{{ translations[settings.language].DETECTION_CONFIDENCE }}</label>
+                  <input type="range" class="form-range" min="0.0" max="1.0" step="0.01">
+
                 </div>
               </form>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" @click="saveSettings">Save Changes</button>
+            <button type="submit" class="btn btn-primary" @click="saveSettings">
+              {{ translations[settings.language].SAVE_CHANGES }}
+            </button>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- New Profile Modal -->
-    <div class="modal fade" id="new-profile-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Create New Profile</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <input type="text" class="form-control" spellcheck="false" placeholder="Profile Name"
-              v-model="app.modals.name">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="createProfile">Create
-              Profile</button>
-          </div>
+  <!-- Create Profile Modal -->
+  <div class="modal fade" id="new-profile-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">
+            {{ translations[settings.language].CREATE_PROFILE }}
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="text" class="form-control" spellcheck="false" v-model="app.modals.name">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            {{ translations[settings.language].CLOSE }}
+          </button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="createProfile">
+            {{ translations[settings.language].CREATE_PROFILE }}
+          </button>
         </div>
       </div>
     </div>
+  </div>
 
-    <!--Blendshapes Modal -->
-    <div class="modal fade" id="blendshapes-modal" tabindex="-1" aria-labelledby="blendshapes modal" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5">Blendshapes</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="mb-3">
-              <div v-for="(value, key) in mp.bs" class="row align-items-center p-0 m-0 blendshape-item">
-                <div class="col-3 text-right">
-                  {{ key }}
-                </div>
-                <div class="col-9">
-                  <div class="d-grid gap-1 position-relative">
-                    <div class="progress position-relative">
-                      <div class="progress-bar bg-success" :style="'width: ' + value + '%;'" role="progressbar"></div>
-                      <div class="justify-content-center align-items-center d-flex position-absolute w-100 h-100">{{
-                        value
-                        }}</div>
-                    </div>
+  <!--Blendshapes Modal -->
+  <div class="modal fade" id="blendshapes-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">
+            {{ translations[settings.language].BLENDSHAPES }}
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <div v-for="(value, key) in mp.bs" class="row align-items-center p-0 m-0 blendshape-item">
+              <div class="col-3 text-right">
+                {{ key }}
+              </div>
+              <div class="col-9">
+                <div class="d-grid gap-1 position-relative">
+                  <div class="progress position-relative">
+                    <div class="progress-bar bg-success" :style="'width: ' + value + '%;'" role="progressbar"></div>
+                    <div class="justify-content-center align-items-center d-flex position-absolute w-100 h-100">
+                      {{ value }}</div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            {{ translations[settings.language].CLOSE }}
+          </button>
         </div>
       </div>
     </div>
-
+  </div>
 </body>
 
 </html>
