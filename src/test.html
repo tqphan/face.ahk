@@ -3,64 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vue.js Translation Example</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.min.js"></script>
+    <title>Bootstrap Slider on Progress Bar</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .slider-container {
+            position: relative;
+            width: 100%;
+            margin: 2rem 0;
+        }
+
+        .progress {
+            height: 20px;
+            border-radius: 10px;
+        }
+
+        .custom-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: transparent;
+            -webkit-appearance: none;
+            appearance: none;
+            outline: none;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        /* Hide slider track/background */
+        .custom-slider::-webkit-slider-track {
+            background: transparent;
+            height: 20px;
+        }
+
+        .custom-slider::-moz-range-track {
+            background: transparent;
+            height: 20px;
+            border: none;
+        }
+
+        /* Style the slider thumb */
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 4px;
+            height: 24px;
+            background: #fff;
+            border: 2px solid #007bff;
+            border-radius: 2px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .custom-slider::-moz-range-thumb {
+            width: 4px;
+            height: 24px;
+            background: #fff;
+            border: 2px solid #007bff;
+            border-radius: 2px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* Hover effects */
+        .custom-slider::-webkit-slider-thumb:hover {
+            background: #f8f9fa;
+            border-color: #0056b3;
+        }
+
+        .custom-slider::-moz-range-thumb:hover {
+            background: #f8f9fa;
+            border-color: #0056b3;
+        }
+
+        .value-display {
+            text-align: center;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+    </style>
 </head>
 <body>
-    <div id="app">
-        <h1>Vue.js Translation Demo</h1>
-        
-        <div>
-            <label>Language: </label>
-            <select v-model="currentLanguage">
-                <option v-for="(langData, langCode) in translations" :key="langCode" :value="langCode">
-                    {{ langData.name }}
-                </option>
-            </select>
-        </div>
-        
-        <div>
-            <h2>{{ t('hello') }}</h2>
-            <p>{{ t('welcome') }}</p>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h3 class="text-center mb-4">Custom Slider on Progress Bar</h3>
+                
+                <div class="slider-container">
+                    <!-- Progress bar -->
+                    <div class="progress">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 50%" id="progressBar"></div>
+                    </div>
+                    
+                    <!-- Slider overlay -->
+                    <input type="range" class="custom-slider" min="0" max="100" value="50" id="slider">
+                </div>
+                
+                <div class="value-display">
+                    <span class="badge bg-primary fs-6" id="valueDisplay">50%</span>
+                </div>
+                
+                <!-- Additional example with different colors -->
+                <div class="slider-container mt-5">
+                    <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 75%" id="progressBar2"></div>
+                    </div>
+                    <input type="range" class="custom-slider" min="0" max="100" value="75" id="slider2" style="--thumb-color: #28a745;">
+                </div>
+                
+                <div class="value-display">
+                    <span class="badge bg-success fs-6" id="valueDisplay2">75%</span>
+                </div>
+            </div>
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-        const { createApp, ref } = Vue;
+        // First slider
+        const slider = document.getElementById('slider');
+        const progressBar = document.getElementById('progressBar');
+        const valueDisplay = document.getElementById('valueDisplay');
 
-        createApp({
-            setup() {
-                const translations = {
-                    "en": {
-                        "name": "English",
-                        "hello": "Hello!",
-                        "welcome": "Welcome to my app!"
-                    },
-                    "fr": {
-                        "name": "Français",
-                        "hello": "Bonjour!",
-                        "welcome": "Bienvenue sur mon appli!"
-                    },
-                    "it": {
-                        "name": "Italiano",
-                        "hello": "Ciao!",
-                        "welcome": "Benvenuto nella mia app!"
-                    }
-                };
+        slider.addEventListener('input', function() {
+            const value = this.value;
+            progressBar.style.width = value + '%';
+            valueDisplay.textContent = value + '%';
+        });
 
-                const currentLanguage = ref('en');
+        // Second slider
+        const slider2 = document.getElementById('slider2');
+        const progressBar2 = document.getElementById('progressBar2');
+        const valueDisplay2 = document.getElementById('valueDisplay2');
 
-                const t = (key) => {
-                    return translations[currentLanguage.value]?.[key] || key;
-                };
-
-                return {
-                    currentLanguage,
-                    translations,
-                    t
-                };
-            }
-        }).mount('#app');
+        slider2.addEventListener('input', function() {
+            const value = this.value;
+            progressBar2.style.width = value + '%';
+            valueDisplay2.textContent = value + '%';
+        });
     </script>
 </body>
 </html>

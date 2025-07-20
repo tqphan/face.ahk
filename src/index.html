@@ -98,6 +98,7 @@
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
@@ -114,20 +115,21 @@
               <div class="row align-items-center p-0 m-0">
                 <div class="col-auto p-0">
                   <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" :checked="(binding.enabled)">
-                    <label class="form-check-label">☰⎯</label>
+                    <input class="form-check-input" type="checkbox" role="switch" v-model="binding.advance">
+                    <!-- <label class="form-check-label">☰⎯</label> -->
                   </div>
                 </div>
-                <!-- <div class="col text-center p-0">
-                  test
-                </div> -->
+                <div class="col text-center p-0">
+                </div>
                 <div class="col-auto p-0">
                   <button type="button" class="btn-close" @click="removeBinding(index)"></button>
                 </div>
               </div>
             </div>
             <div class="d-grid gap-2 card-body blend-shapes-items">
-              <div class="row">
+
+              <!-- Advance Bindings -->
+              <div class="row" v-show="(binding.advance)">
                 <div class="col-sm-6">
                   <div class="card text-center">
                     <div class="card-body">
@@ -205,10 +207,95 @@
                   </div>
                 </div>
               </div>
+              <!-- Advance Bindings -->
+
+              <!-- Basic Bindings -->
+              <div class="row" v-show="!(binding.advance)">
+                <div class="row align-items-center">
+                  <div class="row">
+                    <div class="col slider-container align-items-center">
+                      <input type="range" class="custom-form-range" min="0" max="100"
+                        v-model="binding.blendshapes[0].threshold">
+                      <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar"
+                          :style="'width: ' + mp.bs[binding.blendshapes[0].name] + '%;'"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <p></p>
+                  <div class="row">
+                    <div class="col-4">
+                      <select class="form-select" v-model="binding.blendshapes[0].name">
+                        <option value="_neutral">_neutral</option>
+                        <option value="browDownLeft">browDownLeft</option>
+                        <option value="browDownRight">browDownRight</option>
+                        <option value="browInnerUp">browInnerUp</option>
+                        <option value="browOuterUpLeft">browOuterUpLeft</option>
+                        <option value="browOuterUpRight">browOuterUpRight</option>
+                        <option value="cheekPuff">cheekPuff</option>
+                        <option value="cheekSquintLeft">cheekSquintLeft</option>
+                        <option value="cheekSquintRight">cheekSquintRight</option>
+                        <option value="eyeBlinkLeft">eyeBlinkLeft</option>
+                        <option value="eyeBlinkRight">eyeBlinkRight</option>
+                        <option value="eyeLookDownLeft">eyeLookDownLeft</option>
+                        <option value="eyeLookDownRight">eyeLookDownRight</option>
+                        <option value="eyeLookInLeft">eyeLookInLeft</option>
+                        <option value="eyeLookInRight">eyeLookInRight</option>
+                        <option value="eyeLookOutLeft">eyeLookOutLeft</option>
+                        <option value="eyeLookOutRight">eyeLookOutRight</option>
+                        <option value="eyeLookUpLeft">eyeLookUpLeft</option>
+                        <option value="eyeLookUpRight">eyeLookUpRight</option>
+                        <option value="eyeSquintLeft">eyeSquintLeft</option>
+                        <option value="eyeSquintRight">eyeSquintRight</option>
+                        <option value="eyeWideLeft">eyeWideLeft</option>
+                        <option value="eyeWideRight">eyeWideRight</option>
+                        <option value="jawForward">jawForward</option>
+                        <option value="jawLeft">jawLeft</option>
+                        <option value="jawOpen">jawOpen</option>
+                        <option value="jawRight">jawRight</option>
+                        <option value="mouthClose">mouthClose</option>
+                        <option value="mouthDimpleLeft">mouthDimpleLeft</option>
+                        <option value="mouthDimpleRight">mouthDimpleRight</option>
+                        <option value="mouthFrownLeft">mouthFrownLeft</option>
+                        <option value="mouthFrownRight">mouthFrownRight</option>
+                        <option value="mouthFunnel">mouthFunnel</option>
+                        <option value="mouthLeft">mouthLeft</option>
+                        <option value="mouthLowerDownLeft">mouthLowerDownLeft</option>
+                        <option value="mouthLowerDownRight">mouthLowerDownRight</option>
+                        <option value="mouthPressLeft">mouthPressLeft</option>
+                        <option value="mouthPressRight">mouthPressRight</option>
+                        <option value="mouthPucker">mouthPucker</option>
+                        <option value="mouthRight">mouthRight</option>
+                        <option value="mouthRollLower">mouthRollLower</option>
+                        <option value="mouthRollUpper">mouthRollUpper</option>
+                        <option value="mouthShrugLower">mouthShrugLower</option>
+                        <option value="mouthShrugUpper">mouthShrugUpper</option>
+                        <option value="mouthSmileLeft">mouthSmileLeft</option>
+                        <option value="mouthSmileRight">mouthSmileRight</option>
+                        <option value="mouthStretchLeft">mouthStretchLeft</option>
+                        <option value="mouthStretchRight">mouthStretchRight</option>
+                        <option value="mouthUpperUpLeft">mouthUpperUpLeft</option>
+                        <option value="mouthUpperUpRight">mouthUpperUpRight</option>
+                        <option value="noseSneerLeft">noseSneerLeft</option>
+                        <option value="noseSneerRight">noseSneerRight</option>
+                      </select>
+                    </div>
+                    <div class="col-4">
+                      <input class="form-control" spellcheck="false" 
+                        v-model="binding.blendshapes[0].ahk.start">
+                    </div>
+                    <div class="col-4">
+                      <input class="form-control" spellcheck="false" 
+                        v-model="binding.blendshapes[0].ahk.stop">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Basic Bindings -->
+
             </div>
           </div>
         </div>
-
         <div v-else class="d-flex flex-column h-100 justify-content-center align-items-center">
           <h5>
             {{ translations[settings.language].PROFILE_TIP }}

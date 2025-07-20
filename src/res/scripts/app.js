@@ -26,8 +26,9 @@ const application = createApp({
         const predicting = ref(false);
         const settings = ref(structuredClone(json.settings));
         const translations = ref(structuredClone(json.translations));
+        const test = ref(false);
         return {
-            app, mp: mediapipe, predicting, settings, translations
+            app, mp: mediapipe, predicting, settings, translations, test
         };
     },
     async mounted() {
@@ -141,7 +142,7 @@ const application = createApp({
         loadSettings() {
             try {
                 this.settings = json.settings;
-                console.log(this.settings);
+                // console.log(this.settings);
             } catch (error) {
                 console.error(error);
                 this.settings = structuredClone(settings);
@@ -154,7 +155,7 @@ const application = createApp({
         inputChanged(event) {
             const newValue = event.target.value;
             this.app.profiles.selection = newValue;
-            console.log(newValue);
+            // console.log(newValue);
         },
         createProfile() {
             try {
@@ -224,6 +225,9 @@ const application = createApp({
                     binding.stop.activated = true;
                     this.parseLogic(binding.start);
                     this.parseLogic(binding.stop);
+                    binding.blendshapes.forEach((bs) => {
+                        bs.started = false;
+                    });
                 });
             });
         },
@@ -253,7 +257,7 @@ const application = createApp({
             else
                 return ret;
         },
-        processBinding(binding, results, time) {
+        processAdvanceBindings(binding, results, time) {
             // Check if binding function is valid
             const validity = binding.fn && this.ffn(binding.fn, results);
 
@@ -284,28 +288,39 @@ const application = createApp({
 
             return binding.activated;
         },
+        processBasicBindings(binding, results) {
+            binding.blendshapes.forEach((bs) => {
+                if (bs.started) {
+                    if (bs.threshold < results[bs.name]) {
+                        window.chrome.webview.postMessage(bs.ahk.start);
+                        bs.started = false;
+                    }
+                } else {
+                    if (bs.threshold > results[bs.name]) {
+                        window.chrome.webview.postMessage(bs.ahk.stop);
+                        bs.started = true;
+                    }
+                }
+            });
+        },
         processBindings(bindings, results, time) {
             bindings?.forEach((binding) => {
+                if (binding.advance) {
+                    this.processAdvanceBindings(binding.start, results, time);
+                    this.processAdvanceBindings(binding.stop, results, time);
+                }
+                else {
+                    this.processBasicBindings(binding, results);
+                }
                 // if(!binding.started) {
                 //     binding.started = this.processBinding(binding.start, results, time)
                 // }
                 // else {
                 //     binding.started = this.processBinding(binding.stop, results, time);
                 // }
-                this.processBinding(binding.start, results, time);
-                this.processBinding(binding.stop, results, time);
             });
         }
     }
-    // watch: {
-    //     'app.profiles': {
-    //         handler: function (after, before) {
-    //             //this.saveProfiles();
-    //             // window.chrome.webview.postMessage("window.document.URL");
-    //         },
-    //         deep: true
-    //     }
-    // }
 });
 
 application.mount("#app");

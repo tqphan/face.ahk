@@ -3,7 +3,7 @@
 	"selection": 0,
 	"items": [
 		{
-			"name": "day",
+			"name": "chair - light",
 			"bindings": [
 				{
 					"start": {
@@ -20,9 +20,20 @@
 						"activated": true,
 						"time": 0
 					},
-					"blendshapes": [],
+					"blendshapes": [
+						{
+							"name": "browInnerUp",
+							"threshold": 40,
+							"started": true,
+							"ahk": {
+								"start": "{f14 down}",
+								"stop": "{f14 up}"
+							}
+						}
+					],
 					"enabled": true,
-					"started": false
+					"started": false,
+					"advance": false
 				},
 				{
 					"start": {
@@ -39,9 +50,20 @@
 						"activated": true,
 						"time": 0
 					},
-					"blendshapes": [],
+					"blendshapes": [
+						{
+							"name": "eyeLookOutLeft",
+							"threshold": "72",
+							"started": true,
+							"ahk": {
+								"start": "{f19 down}",
+								"stop": "{f19 up}"
+							}
+						}
+					],
 					"enabled": true,
-					"started": false
+					"started": false,
+					"advance": false
 				},
 				{
 					"start": {
@@ -58,9 +80,20 @@
 						"activated": true,
 						"time": 0
 					},
-					"blendshapes": [],
+					"blendshapes": [
+						{
+							"name": "eyeLookOutRight",
+							"threshold": 75,
+							"started": true,
+							"ahk": {
+								"start": "{f22 down}",
+								"stop": "{f22 up}"
+							}
+						}
+					],
 					"enabled": true,
-					"started": false
+					"started": false,
+					"advance": false
 				},
 				{
 					"start": {
@@ -77,14 +110,25 @@
 						"activated": true,
 						"time": 0
 					},
-					"blendshapes": [],
+					"blendshapes": [
+						{
+							"name": "mouthPucker",
+							"threshold": 70,
+							"started": true,
+							"ahk": {
+								"start": "{Blind}{f13 down}",
+								"stop": "{Blind}{f13 up}"
+							}
+						}
+					],
 					"enabled": true,
-					"started": false
+					"started": false,
+					"advance": false
 				}
 			]
 		},
 		{
-			"name": "night",
+			"name": "chair - dark",
 			"bindings": [
 				{
 					"start": {
@@ -103,8 +147,20 @@
 						"time": 0,
 						"fn": null
 					},
-					"blendshapes": [],
-					"started": false
+					"blendshapes": [
+						{
+							"name": "mouthPucker",
+							"threshold": 70,
+							"started": false,
+							"ahk": {
+								"start": "",
+								"stop": ""
+							}
+						}
+					],
+					"enabled": true,
+					"started": false,
+					"advance": false
 				}
 			]
 		}

@@ -1,7 +1,6 @@
 {
     "theme": "dark",
     "language": "en",
-    "startup_webcam_enabled": false,
-    "advance_bindings_enabled": false
-
+    "webcam.opacity": 1.0,
+    "landmarks.opacity": 1.0
 }
