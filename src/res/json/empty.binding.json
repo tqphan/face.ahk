@@ -1,6 +1,5 @@
 {
-    "start":
-    {
+    "start": {
         "logic": "",
         "ahk": "",
         "debounce": 0,
@@ -8,8 +7,7 @@
         "time": 0,
         "fn": null
     },
-    "stop":
-    {
+    "stop": {
         "logic": "",
         "ahk": "",
         "debounce": 0,
@@ -17,6 +15,16 @@
         "time": 0,
         "fn": null
     },
-    "blendshapes": [],
+    "blendshapes": [
+        {
+            "name": "_neutral",
+            "threshold": 50,
+            "started": false,
+            "ahk": {
+                "start": "",
+                "stop": ""
+            }
+        }
+    ],
     "started": false
 }

@@ -28,7 +28,6 @@ video {
 .output_canvas {
   transform: rotateY(180deg);
   -webkit-transform: rotateY(180deg);
-  -moz-transform: rotateY(180deg);
   z-index: 10;
   position: absolute;
   pointer-events: none;
@@ -65,44 +64,17 @@ video {
   height: 12px;
 }
 
-
-/* .custom-form-range::-webkit-slider-thumb {
-  background: #0d6efd;
-  border-radius: 0%;
-  width: 8px;
-  height: 24px;
+.progress-slider {
+  height: 12px;
 }
 
-.custom-form-range::-webkit-slider-thumb:active {
-  background: #0d6efd;
-}
-
-.custom-form-range::-webkit-slider-thumb:focus {
-  outline: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .custom-form-range::-webkit-slider-thumb {
-    -webkit-transition: none;
-    transition: none;
-  }
-}
-
-.custom-form-range::-webkit-slider-runnable-track {
-  color: transparent;
-  background-color: transparent;
-  border-color: transparent;
-} */
-/* Style the slider thumb */
 .custom-form-range::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 6px;
   height: 12px;
-  border-radius: 2px;
-  border: 2px solid #5f0216;
-  background: #5f0216;
-  cursor: pointer;
+  background: #b60cb0;
+  cursor: ew-resize;
 }
 
 .slider-container {

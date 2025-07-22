@@ -83,7 +83,7 @@
 					"blendshapes": [
 						{
 							"name": "eyeLookOutRight",
-							"threshold": 75,
+							"threshold": "72",
 							"started": true,
 							"ahk": {
 								"start": "{f22 down}",
@@ -113,7 +113,7 @@
 					"blendshapes": [
 						{
 							"name": "mouthPucker",
-							"threshold": 70,
+							"threshold": "48",
 							"started": true,
 							"ahk": {
 								"start": "{Blind}{f13 down}",

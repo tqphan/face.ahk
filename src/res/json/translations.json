@@ -16,7 +16,7 @@
         "CREATE_PROFILE": "Create Profile",
         "REMOVE_PROFILE": "Remove Profile",
         "SAVE_PROFILE": "Save Profile",
-        "PROFILE_TIP": "Create a profile to get started.",
+        "PROFILE_EMPTY_MESSAGE": "Create a profile to get started.",
         "CREATE_BINDING": "Create Binding",
         "REMOVE_BINDING": "Remove Binding",
         "JAVASCRIPT_EXPRESSION": "JavaScript Expression",

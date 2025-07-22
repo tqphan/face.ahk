@@ -211,16 +211,12 @@
 
               <!-- Basic Bindings -->
               <div class="row" v-show="!(binding.advance)">
-                <div class="row align-items-center">
-                  <div class="row">
-                    <div class="col slider-container align-items-center">
-                      <input type="range" class="custom-form-range" min="0" max="100"
-                        v-model="binding.blendshapes[0].threshold">
-                      <div class="progress">
-                        <div class="progress-bar bg-success" role="progressbar"
-                          :style="'width: ' + mp.bs[binding.blendshapes[0].name] + '%;'"></div>
-                      </div>
-                    </div>
+                <div class="col slider-container align-items-center">
+                  <input type="range" class="custom-form-range" min="0" max="100"
+                    v-model="binding.blendshapes[0].threshold">
+                  <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar"
+                      :style="'width: ' + mp.bs[binding.blendshapes[0].name] + '%;'"></div>
                   </div>
                   <p></p>
                   <div class="row">
@@ -281,12 +277,10 @@
                       </select>
                     </div>
                     <div class="col-4">
-                      <input class="form-control" spellcheck="false" 
-                        v-model="binding.blendshapes[0].ahk.start">
+                      <input class="form-control" spellcheck="false" v-model="binding.blendshapes[0].ahk.start">
                     </div>
                     <div class="col-4">
-                      <input class="form-control" spellcheck="false" 
-                        v-model="binding.blendshapes[0].ahk.stop">
+                      <input class="form-control" spellcheck="false" v-model="binding.blendshapes[0].ahk.stop">
                     </div>
                   </div>
                 </div>
@@ -298,7 +292,7 @@
         </div>
         <div v-else class="d-flex flex-column h-100 justify-content-center align-items-center">
           <h5>
-            {{ translations[settings.language].PROFILE_TIP }}
+            {{ translations[settings.language].PROFILE_EMPTY_MESSAGE }}
           </h5>
         </div>
       </div>
@@ -369,7 +363,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" @click="saveSettings">
+            <button type="button" class="btn btn-primary" @click="saveSettings">
               {{ translations[settings.language].SAVE_CHANGES }}
             </button>
           </div>
@@ -416,7 +410,7 @@
         <div class="modal-body">
           <div class="mb-3">
             <div v-for="(value, key) in mp.bs" class="row align-items-center p-0 m-0 blendshape-item">
-              <div class="col-3 text-right">
+              <div class="col-3 text-end">
                 {{ key }}
               </div>
               <div class="col-9">
