@@ -45,7 +45,7 @@ SaveProfiles(content) {
 }
 
 SaveSettings(content) {
-	ToolTip("Saving settings...",,1000)
+	; ToolTip("Saving settings...",,1000)
 	; FileDelete(App.SETTINGS_PATH App.SETTINGS_NAME)
 	; FileAppend(content, App.SETTINGS_PATH App.SETTINGS_NAME)
 }

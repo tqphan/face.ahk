@@ -116,8 +116,8 @@
 							"threshold": "48",
 							"started": true,
 							"ahk": {
-								"start": "{Blind}{f13 down}",
-								"stop": "{Blind}{f13 up}"
+								"start": "{f13 down}",
+								"stop": "{f13 up}"
 							}
 						}
 					],

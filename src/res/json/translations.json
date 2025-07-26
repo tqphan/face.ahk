@@ -7,6 +7,8 @@
         "SAVE_CHANGES": "Save Changes",
         "BLENDSHAPES": "Blendshapes",
         "THEME": "Theme",
+        "THEME_LIGHT": "Light",
+        "THEME_DARK": "Dark",
         "TRACKING_CONFIDENCE": "Minimum tracking confidence",
         "PRESENCE_CONFIDENCE": "Minimum face presence confidence",
         "DETECTION_CONFIDENCE": "Minimum face detection confidence",

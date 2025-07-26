@@ -1,18 +1,4 @@
 {
     "theme": "dark",
-    "language": "en",
-    "webcam": {
-        "visibility": false,
-        "enabled": false
-    },
-    "prediction": {
-        "startup": {
-            "enabled": false
-        }
-    },
-    "confidence": {
-        "tracking": 0.5,
-        "presence": 0.0,
-        "detection": 0.5
-    }
+    "language": "en"
 }

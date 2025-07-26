@@ -1,6 +1,7 @@
 import {
     createApp,
-    ref
+    ref,
+    watch
 } from "../../lib/Vue/vue.esm-browser.js";
 
 import {
@@ -27,6 +28,13 @@ const application = createApp({
         const settings = ref(structuredClone(json.settings));
         const translations = ref(structuredClone(json.translations));
         const test = ref(false);
+        watch(
+            () => settings.value.theme,
+            (value) => {
+                document.body.setAttribute('data-bs-theme', value);
+            },
+            { immediate: true }
+        );
         return {
             app, mp: mediapipe, predicting, settings, translations, test
         };
