@@ -1,7 +1,6 @@
 import {
     createApp,
-    ref,
-    watch
+    ref
 } from "../../lib/Vue/vue.esm-browser.js";
 
 import {
@@ -28,13 +27,6 @@ const application = createApp({
         const settings = ref(structuredClone(json.settings));
         const translations = ref(structuredClone(json.translations));
         const test = ref(false);
-        watch(
-            () => settings.value.theme,
-            (value) => {
-                document.body.setAttribute('data-bs-theme', value);
-            },
-            { immediate: true }
-        );
         return {
             app, mp: mediapipe, predicting, settings, translations, test
         };
@@ -42,6 +34,7 @@ const application = createApp({
     async mounted() {
         const ctx = this.$refs.output_canvas.getContext("2d");
         this.mp.drawingUtils = new DrawingUtils(ctx);
+        this.applyTheme();
         this.loadSettings();
         this.loadProfiles();
         this.$refs.input_video.requestVideoFrameCallback(this.predict);
@@ -80,9 +73,9 @@ const application = createApp({
                 console.log("Wait for faceLandmarker to load before clicking!");
                 return;
             }
-            // if (this.settings.prediction.startup.enabled) {
-            //     this.toggleWebcam();
-            // }
+            if (this.settings["auto.start.prediction"]) {
+                this.toggleWebcam();
+            }
         },
         async predict() {
             let results;
@@ -144,13 +137,15 @@ const application = createApp({
             }
             this.predicting = !this.predicting;
         },
+        applyTheme() {
+            document.body.setAttribute('data-bs-theme', this.settings.theme);
+        },
         testing() {
             console.log("69");
         },
         loadSettings() {
             try {
                 this.settings = json.settings;
-                // console.log(this.settings);
             } catch (error) {
                 console.error(error);
                 this.settings = structuredClone(settings);
@@ -163,7 +158,6 @@ const application = createApp({
         inputChanged(event) {
             const newValue = event.target.value;
             this.app.profiles.selection = newValue;
-            // console.log(newValue);
         },
         createProfile() {
             try {

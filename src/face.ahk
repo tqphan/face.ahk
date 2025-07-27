@@ -30,6 +30,8 @@ wv.CoreWebView2.AddHostObjectToScript('SaveSettings', SaveSettings)
 wv.CoreWebView2.InjectAhkComponent()
 wv.CoreWebView2.Navigate(App.URL)
 
+SetWindowDarkMode(ui.Hwnd, true)
+
 WebMessageReceivedEventHandler(handler, ICoreWebView2, WebMessageReceivedEventArgs) {
 	args := WebView2.WebMessageReceivedEventArgs(WebMessageReceivedEventArgs)
 	msg := args.TryGetWebMessageAsString()
@@ -50,12 +52,14 @@ SaveSettings(content) {
 	; FileAppend(content, App.SETTINGS_PATH App.SETTINGS_NAME)
 }
 
-if VerCompare(A_OSVersion, "10.0.17763") >= 0 {
-	attr := 19
-	if VerCompare(A_OSVersion, "10.0.18985") >= 0 {
-		attr := 20
-	}
-	DllCall("dwmapi\DwmSetWindowAttribute", "ptr", ui.Hwnd, "int", attr, "int*", true, "int", 4)
+SetWindowDarkMode(hwnd, enable := true) {
+    if VerCompare(A_OSVersion, "10.0.17763") >= 0 {
+        attr := 19
+        if VerCompare(A_OSVersion, "10.0.18985") >= 0 {
+            attr := 20
+        }
+        DllCall("dwmapi\DwmSetWindowAttribute", "ptr", hwnd, "int", attr, "int*", enable, "int", 4)
+    }
 }
 
 gui_size(GuiObj, MinMax, Width, Height) {

@@ -3,7 +3,7 @@
     "language": "en",
     "webcam.opacity": 0.0,
     "landmarks.opacity": 1.0,
-    "auto.start.prediction": false,
+    "auto.start.prediction": true,
     "auto.save.settings": false,
     "auto.save.profiles": false,
     "tracking.confidence": 0.5,

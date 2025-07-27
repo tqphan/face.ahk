@@ -82,7 +82,7 @@
 
                 <div class="row mb-3">
                   <div class="col">
-                    <input id="webcamButton" type="checkbox" class="btn-check" @click="toggleWebcam">
+                    <input id="webcamButton" type="checkbox" class="btn-check" v-model="predicting" @click="toggleWebcam">
                     <label class="btn w-100 btn-outline-success" for="webcamButton">
                       {{ translations[settings.language].TOGGLE_PREDICTIONS }}
                     </label>
@@ -321,7 +321,7 @@
                   <label for="themeSelect" class="form-label">
                     {{ translations[settings.language].THEME }}
                   </label>
-                  <select class="form-select" v-model="settings.theme">
+                  <select class="form-select" v-model="settings.theme" @change="applyTheme">
                     <option value="light">{{ translations[settings.language].THEME_LIGHT }}</option>
                     <option value="dark">{{ translations[settings.language].THEME_DARK}}</option>
                   </select>
