@@ -26,9 +26,8 @@ const application = createApp({
         const predicting = ref(false);
         const settings = ref(structuredClone(json.settings));
         const translations = ref(structuredClone(json.translations));
-        const test = ref(false);
         return {
-            app, mp: mediapipe, predicting, settings, translations, test
+            app, mp: mediapipe, predicting, settings, translations
         };
     },
     async mounted() {

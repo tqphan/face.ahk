@@ -4,6 +4,8 @@
     "webcam.opacity": 0.0,
     "landmarks.opacity": 1.0,
     "auto.start.prediction": true,
+    "auto.start.with.windows": false,
+    "run.on.secured.desktop": false,
     "auto.save.settings": false,
     "auto.save.profiles": false,
     "tracking.confidence": 0.5,

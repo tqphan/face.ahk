@@ -31,6 +31,8 @@
         "LANDMARKS_OPACITY": "Landmarks Opacity",
         "AUTO_START_PREDICTIONS": "Auto Start Prediction",
         "AUTO_START_WITH_WINDOWS": "Auto Start with Windows",
+        "AUTO_SAVE_SETTINGS": "Auto Save Settings",
+        "AUTO_SAVE_PROFILES": "Auto Save Profiles",
         "RUN_ON_SECURED_DESKTOP": "Run on Secured Desktop"
     }
 }
