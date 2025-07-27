@@ -80,9 +80,9 @@ const application = createApp({
                 console.log("Wait for faceLandmarker to load before clicking!");
                 return;
             }
-            if (this.settings.prediction.startup.enabled) {
-                this.toggleWebcam();
-            }
+            // if (this.settings.prediction.startup.enabled) {
+            //     this.toggleWebcam();
+            // }
         },
         async predict() {
             let results;

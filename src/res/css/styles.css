@@ -9,10 +9,8 @@ body {
 video {
   transform: rotateY(180deg);
   -webkit-transform: rotateY(180deg);
-  -moz-transform: rotateY(180deg);
   width: 100%;
   height: auto;
-  visibility: hidden;
 }
 
 .videoView,

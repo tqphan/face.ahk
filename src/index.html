@@ -93,8 +93,11 @@
                 <div class="row mb-3">
                   <div class="col">
                     <div id="liveView" class="videoView">
-                      <video id="input_video" ref="input_video" autoplay></video>
-                      <canvas id="output_canvas" ref="output_canvas" class="output_canvas"></canvas>
+                      <video id="input_video" ref="input_video" :style="{ opacity: settings['webcam.opacity'] }"
+                        autoplay></video>
+                      <canvas id="output_canvas" ref="output_canvas" class="output_canvas"
+                        :style="{ opacity: settings['landmarks.opacity'] }"></canvas>
+                      </canvas>
                     </div>
                   </div>
                 </div>
@@ -344,20 +347,24 @@
                   </div>
                   <div class="my-3"></div>
                   <label class="form-label">{{ translations[settings.language].WEBCAM_OPACITY }}</label>
-                  <input type="range" class="form-range" min="0.0" max="1.0" step="0.01">
+                  <input type="range" class="form-range" min="0.0" max="1.0" step="0.01"
+                    v-model="settings['webcam.opacity']">
 
                   <label class="form-label">{{ translations[settings.language].LANDMARKS_OPACITY }}</label>
-                  <input type="range" class="form-range" min="0.0" max="1.0" step="0.01">
+                  <input type="range" class="form-range" min="0.0" max="1.0" step="0.01"
+                    v-model="settings['landmarks.opacity']">
 
                   <label class="form-label">{{ translations[settings.language].TRACKING_CONFIDENCE }}</label>
-                  <input type="range" class="form-range" min="0.0" max="1.0" step="0.01">
+                  <input type="range" class="form-range" min="0.0" max="1.0" step="0.01" 
+                    v-model="settings['tracking.confidence']">
 
                   <label class="form-label">{{ translations[settings.language].PRESENCE_CONFIDENCE }}</label>
-                  <input type="range" class="form-range" min="0.0" max="1.0" step="0.01">
+                  <input type="range" class="form-range" min="0.0" max="1.0" step="0.01" 
+                    v-model="settings['presence.confidence']">
 
                   <label class="form-label">{{ translations[settings.language].DETECTION_CONFIDENCE }}</label>
-                  <input type="range" class="form-range" min="0.0" max="1.0" step="0.01">
-
+                  <input type="range" class="form-range" min="0.0" max="1.0" step="0.01" 
+                    v-model="settings['detection.confidence']">
                 </div>
               </form>
             </div>
