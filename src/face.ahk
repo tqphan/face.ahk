@@ -42,24 +42,31 @@ WebMessageReceivedEventHandler(handler, ICoreWebView2, WebMessageReceivedEventAr
 }
 
 SaveProfiles(content) {
-	FileDelete(App.PROFILE_PATH App.PROFILE_NAME)
-	FileAppend(content, App.PROFILE_PATH App.PROFILE_NAME)
+	try {
+		FileDelete(App.PROFILE_PATH App.PROFILE_NAME)
+		FileAppend(content, App.PROFILE_PATH App.PROFILE_NAME)
+	} catch Error as e {
+		MsgBox e.Message
+	}
 }
 
 SaveSettings(content) {
-	; ToolTip("Saving settings...",,1000)
-	; FileDelete(App.SETTINGS_PATH App.SETTINGS_NAME)
-	; FileAppend(content, App.SETTINGS_PATH App.SETTINGS_NAME)
+	try {
+		FileDelete(App.SETTINGS_PATH App.SETTINGS_NAME)
+		FileAppend(content, App.SETTINGS_PATH App.SETTINGS_NAME)
+	} catch Error as e {
+		MsgBox e.Message
+	}
 }
 
 SetWindowDarkMode(hwnd, enable := true) {
-    if VerCompare(A_OSVersion, "10.0.17763") >= 0 {
-        attr := 19
-        if VerCompare(A_OSVersion, "10.0.18985") >= 0 {
-            attr := 20
-        }
-        DllCall("dwmapi\DwmSetWindowAttribute", "ptr", hwnd, "int", attr, "int*", enable, "int", 4)
-    }
+	if VerCompare(A_OSVersion, "10.0.17763") >= 0 {
+		attr := 19
+		if VerCompare(A_OSVersion, "10.0.18985") >= 0 {
+			attr := 20
+		}
+		DllCall("dwmapi\DwmSetWindowAttribute", "ptr", hwnd, "int", attr, "int*", enable, "int", 4)
+	}
 }
 
 gui_size(GuiObj, MinMax, Width, Height) {
