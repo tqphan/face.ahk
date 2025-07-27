@@ -154,9 +154,9 @@ const application = createApp({
             const parsed = JSON.stringify(this.settings, null, '\t');
             ahk.SaveSettings(parsed);
         },
-        inputChanged(event) {
-            const newValue = event.target.value;
-            this.app.profiles.selection = newValue;
+        profileChanged(event) {
+            const value = event.target.value;
+            this.app.profiles.selection = value;
         },
         createProfile() {
             try {
@@ -204,16 +204,12 @@ const application = createApp({
             }
         },
         loadProfiles() {
-            if (localStorage.getItem('profiles')) {
-                try {
-                    this.app.profiles = profiles;
-                    // this.app.profiles = JSON.parse(localStorage.getItem('profiles'));
-                    this.resetProfiles();
-                } catch (e) {
-                    console.error(error);
-                    localStorage.removeItem('profiles');
-                    this.app.profiles = structuredClone(empty);
-                }
+            try {
+                this.app.profiles = profiles;
+                this.resetProfiles();
+            } catch (e) {
+                console.error(error);
+                this.app.profiles = structuredClone(empty);
             }
         },
         resetProfiles() {

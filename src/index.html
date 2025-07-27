@@ -33,19 +33,17 @@
                 <div class="row align-items-center g-3 mb-3">
                   <div class="col-sm">
                     <button type="button" class="btn w-100 btn-primary text-nowrap" data-bs-toggle="modal"
-                      :disabled="shouldDisabled" data-bs-target="#new-profile-modal">
+                      data-bs-target="#new-profile-modal">
                       {{ translations[settings.language].CREATE_PROFILE }}
                     </button>
                   </div>
                   <div class="col-sm">
-                    <button type="button" class="btn w-100 btn-success text-nowrap"
-                      :disabled="!hasProfiles || shouldDisabled" @click="saveProfiles">
+                    <button type="button" class="btn w-100 btn-success text-nowrap" @click="saveProfiles">
                       {{ translations[settings.language].SAVE_PROFILE }}
                     </button>
                   </div>
                   <div class="col-sm">
-                    <button type="button" class="btn w-100 btn-danger text-nowrap" @click="removeProfile"
-                      :disabled="!hasProfiles || shouldDisabled">
+                    <button type="button" class="btn w-100 btn-danger text-nowrap" @click="removeProfile">
                       {{ translations[settings.language].REMOVE_PROFILE }}
                     </button>
                   </div>
@@ -53,9 +51,9 @@
 
                 <div class="row mb-3">
                   <div class="col">
-                    <select class="form-select" :disabled="shouldDisabled" size="8" v-model="app.profiles.selection"
-                      aria-label="select example">
-                      <option v-for="(profile, index) in app.profiles.items" :value="index">
+                    <select class="form-select" size="8" @change="profileChanged" aria-label="select profile">
+                      <option v-for="(profile, index) in app.profiles.items" :value="index"
+                        :selected="index === app.profiles.selection">
                         {{ profile.name }}
                       </option>
                     </select>
@@ -82,7 +80,8 @@
 
                 <div class="row mb-3">
                   <div class="col">
-                    <input id="webcamButton" type="checkbox" class="btn-check" v-model="predicting" @click="toggleWebcam">
+                    <input id="webcamButton" type="checkbox" class="btn-check" v-model="predicting"
+                      @click="toggleWebcam">
                     <label class="btn w-100 btn-outline-success" for="webcamButton">
                       {{ translations[settings.language].TOGGLE_PREDICTIONS }}
                     </label>
@@ -367,15 +366,15 @@
                     v-model="settings['landmarks.opacity']">
 
                   <label class="form-label">{{ translations[settings.language].TRACKING_CONFIDENCE }}</label>
-                  <input type="range" class="form-range" min="0.0" max="1.0" step="0.01" 
+                  <input type="range" class="form-range" min="0.0" max="1.0" step="0.01"
                     v-model="settings['tracking.confidence']">
 
                   <label class="form-label">{{ translations[settings.language].PRESENCE_CONFIDENCE }}</label>
-                  <input type="range" class="form-range" min="0.0" max="1.0" step="0.01" 
+                  <input type="range" class="form-range" min="0.0" max="1.0" step="0.01"
                     v-model="settings['presence.confidence']">
 
                   <label class="form-label">{{ translations[settings.language].DETECTION_CONFIDENCE }}</label>
-                  <input type="range" class="form-range" min="0.0" max="1.0" step="0.01" 
+                  <input type="range" class="form-range" min="0.0" max="1.0" step="0.01"
                     v-model="settings['detection.confidence']">
                 </div>
               </form>
