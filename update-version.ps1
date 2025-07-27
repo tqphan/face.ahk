@@ -1,3 +1,4 @@
+#!/usr/bin/env pwsh
 # Get the latest commit number (total commits)
 $commitCount = git rev-list --count HEAD
 
