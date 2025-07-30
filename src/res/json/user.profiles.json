@@ -113,7 +113,7 @@
 					"blendshapes": [
 						{
 							"name": "mouthPucker",
-							"threshold": "48",
+							"threshold": "71",
 							"started": true,
 							"ahk": {
 								"start": "{f13 down}",

@@ -29,10 +29,11 @@
         "TOGGLE_PREDICTIONS": "Toggle Predictions",
         "WEBCAM_OPACITY": "Webcam Opacity",
         "LANDMARKS_OPACITY": "Landmarks Opacity",
-        "AUTO_START_PREDICTIONS": "Auto Start Prediction",
-        "AUTO_START_WITH_WINDOWS": "Auto Start with Windows",
-        "AUTO_SAVE_SETTINGS": "Auto Save Settings",
-        "AUTO_SAVE_PROFILES": "Auto Save Profiles",
-        "RUN_ON_SECURED_DESKTOP": "Run on Secured Desktop"
+        "AUTO_START_PREDICTIONS": "Automatically start prediction",
+        "AUTO_START_WITH_WINDOWS": "Automatically start with Windows",
+        "AUTO_SAVE_SETTINGS": "Automatically save settings",
+        "AUTO_SAVE_PROFILES": "Automatically save profiles",
+        "RUN_ON_SECURED_DESKTOP": "Run on Secured Desktop",
+        "ALLOW_INPUT_SIMULATION": "Allow input simulation on this window"
     }
 }

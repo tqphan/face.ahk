@@ -20,7 +20,8 @@ ui := Gui()
 ui.Title := App.NAME
 ui.Opt("+Resize +Border +MaximizeBox +MinimizeBox +MinSize640x480")
 ui.BackColor := 0x212529
-ui.OnEvent("Size", Gui_Size)
+ui.OnEvent("Size", sizing)
+ui.OnEvent("Close", closing)
 ui.Show(Format("w{} h{}", A_ScreenWidth * 0.75, A_ScreenHeight * 0.75))
 wv := WebView2.CreateControllerAsync(ui.Hwnd).await2()
 wv.CoreWebView2.add_WebMessageReceived(WebView2.Handler(WebMessageReceivedEventHandler))
@@ -69,8 +70,20 @@ SetWindowDarkMode(hwnd, enable := true) {
 	}
 }
 
-gui_size(GuiObj, MinMax, Width, Height) {
+sizing(GuiObj, MinMax, Width, Height) {
 	if (MinMax != -1) {
 		try wv.Fill()
 	}
+}
+
+closing(GuiObj) {
+	wv.CoreWebView2.ExecuteScript("window.app.exiting()")
+	; if (result)
+	; 	ExitApp
+	ui.Hide()
+	Sleep 1000
+	ExitApp
+}
+F1::{
+	wv.CoreWebView2.ExecuteScriptAsync("window.app.exiting()").await()
 }

@@ -72,7 +72,7 @@
                 <div class="row mb-3">
                   <div class="col">
                     <button class="btn w-100 btn-primary" type="button" data-bs-toggle="modal"
-                      :disabled="!shouldDisabled" data-bs-target="#blendshapes-modal">
+                      data-bs-target="#blendshapes-modal">
                       {{ translations[settings.language].BLENDSHAPES }}
                     </button>
                   </div>
@@ -107,7 +107,7 @@
         </div>
       </div>
       <div class="col-md-8">
-        <div id="blendgroup-container" class="d-grid gap-3" v-if="hasProfiles">
+        <div id="blendgroup-container" class="d-grid gap-3" v-if="app.profiles.items.length > 0">
           <button type="button" class="btn w-100 btn-success" @click="createBinding">
             {{ translations[settings.language].CREATE_BINDING }}
           </button>
@@ -136,7 +136,7 @@
                   <div class="card text-center">
                     <div class="card-body">
                       <h6 class="card-title"
-                        :class="{ 'text-success': ((binding.start.activated) && (shouldDisabled)) }">
+                        :class="{ 'text-success': ((binding.start.activated) && (predicting)) }">
                         {{ translations[settings.language].START }}
                       </h6>
                       <div class="my-3"></div>
@@ -174,7 +174,7 @@
                   <div class="card text-center">
                     <div class="card-body">
                       <h6 class="card-title"
-                        :class="{ 'text-success': ((binding.stop.activated) && (shouldDisabled)) }">
+                        :class="{ 'text-success': ((binding.stop.activated) && (predicting)) }">
                         {{ translations[settings.language].STOP }}
                       </h6>
                       <div class="my-3"></div>
