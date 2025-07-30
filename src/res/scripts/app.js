@@ -39,17 +39,6 @@ const application = createApp({
         this.$refs.input_video.requestVideoFrameCallback(this.predict);
         await this.init();
     },
-    computed: {
-        hasProfiles() {
-            if (this.app.profiles.items.length > 0)
-                return true;
-            else
-                return false;
-        },
-        shouldDisabled() {
-            return this.predicting
-        }
-    },
     methods: {
         async init() {
             const filesetResolver = await FilesetResolver.forVisionTasks(
@@ -65,7 +54,10 @@ const application = createApp({
                     },
                     outputFaceBlendshapes: true,
                     runningMode: "VIDEO",
-                    numFaces: 1
+                    numFaces: 1,
+                    minFaceDetectionConfidence: this.settings["detection.confidence"],
+                    minTrackingConfidence: this.settings["tracking.confidence"],
+                    minFacePresenceConfidence: this.settings["presence.confidence"]
                 }
             );
             if (!this.mp.faceLandmarker) {
@@ -99,13 +91,13 @@ const application = createApp({
                 this.processBindings(this.app.profiles.items[value].bindings, this.mp.bs, time);
 
             results?.faceLandmarks?.forEach(landmarks => {
-                this.mp.drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_TESSELATION, { color: "#87D37C", lineWidth: 0.25 });
-                this.mp.drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_RIGHT_EYE, { color: "#FF3030" });
+                this.mp.drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_TESSELATION, { color: "#27a912ff", lineWidth: 0.25 });
+                this.mp.drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_RIGHT_EYE, { color: "#cc2626ff" });
                 this.mp.drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_RIGHT_EYEBROW, { color: "#FF3030" });
                 this.mp.drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_LEFT_EYE, { color: "#00ffff" });
                 this.mp.drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_LEFT_EYEBROW, { color: "#00ffff" });
                 this.mp.drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_FACE_OVAL, { color: "#E0E0E0" });
-                this.mp.drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_LIPS, { color: "#3e32a8" });
+                this.mp.drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_LIPS, { color: "#0b006fff" });
                 this.mp.drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_RIGHT_IRIS, { color: "#FF3030" });
                 this.mp.drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_LEFT_IRIS, { color: "#00ffff" });
             });
@@ -114,10 +106,13 @@ const application = createApp({
         },
         toggleWebcam() {
             if (this.predicting) {
-                let tracks = this.$refs.input_video.srcObject.getTracks();
-                tracks.forEach(track => {
-                    track.stop();
-                });
+                const srcObject = this.$refs.input_video.srcObject;
+                if (srcObject && typeof srcObject.getTracks === "function") {
+                    let tracks = srcObject.getTracks();
+                    tracks.forEach(track => {
+                        track.stop();
+                    });
+                }
             }
             else {
                 const constraints = (window.constraints = {
@@ -141,6 +136,16 @@ const application = createApp({
         },
         testing() {
             console.log("69");
+            return 5;
+        },
+        exiting() {
+            if (this.settings["auto.save.profiles"]){
+                this.saveProfiles();
+                console.log("Profiles saved.");
+            }
+            if (this.settings["auto.save.settings"]) 
+                this.saveSettings();
+            return true;
         },
         loadSettings() {
             try {
@@ -197,7 +202,6 @@ const application = createApp({
         saveProfiles() {
             try {
                 const parsed = JSON.stringify(this.app.profiles, null, '\t');
-                // localStorage.setItem('profiles', parsed);
                 ahk.SaveProfiles(parsed);
             } catch (error) {
                 console.error(error);
@@ -207,7 +211,7 @@ const application = createApp({
             try {
                 this.app.profiles = profiles;
                 this.resetProfiles();
-            } catch (e) {
+            } catch (error) {
                 console.error(error);
                 this.app.profiles = structuredClone(empty);
             }
@@ -268,12 +272,12 @@ const application = createApp({
                             binding.time = time;
                         } else if (time - binding.time > binding.debounce) {
                             // Debounce period elapsed - activate
-                            window.chrome.webview.postMessage(binding.ahk);
+                            window.chrome?.webview?.postMessage(binding.ahk);
                             binding.activated = true;
                         }
                     } else {
                         // Immediate activation for non-debounced bindings
-                        window.chrome.webview.postMessage(binding.ahk);
+                        window.chrome?.webview?.postMessage(binding.ahk);
                         binding.activated = true;
                     }
                 }
@@ -289,12 +293,12 @@ const application = createApp({
             binding.blendshapes.forEach((bs) => {
                 if (bs.started) {
                     if (bs.threshold < results[bs.name]) {
-                        window.chrome.webview.postMessage(bs.ahk.start);
+                        window.chrome?.webview?.postMessage(bs.ahk.start);
                         bs.started = false;
                     }
                 } else {
                     if (bs.threshold > results[bs.name]) {
-                        window.chrome.webview.postMessage(bs.ahk.stop);
+                        window.chrome?.webview?.postMessage(bs.ahk.stop);
                         bs.started = true;
                     }
                 }
@@ -320,4 +324,6 @@ const application = createApp({
     }
 });
 
-application.mount("#app");
+const vm = application.mount("#app");
+
+window.app = vm;
