@@ -1,30 +1,33 @@
 {
-    "start": {
-        "logic": "",
-        "ahk": "",
-        "debounce": 0,
-        "activated": false,
-        "time": 0,
-        "fn": null
-    },
-    "stop": {
-        "logic": "",
-        "ahk": "",
-        "debounce": 0,
-        "activated": false,
-        "time": 0,
-        "fn": null
-    },
-    "blendshapes": [
-        {
-            "name": "_neutral",
-            "threshold": 50,
-            "started": false,
-            "ahk": {
-                "start": "",
-                "stop": ""
-            }
+    "name": "",
+    "simplified": true,
+    "enabled": true,
+    "simple": {
+        "blendshape": "_neutral",
+        "threshold": 50,
+        "started": false,
+        "ahk": {
+            "start": "",
+            "stop": ""
         }
-    ],
-    "started": false
+    },
+    "advance": {
+        "started": false,
+        "start": {
+            "logic": "",
+            "ahk": "",
+            "debounce": 0,
+            "activated": false,
+            "time": 0,
+            "fn": null
+        },
+        "stop": {
+            "logic": "",
+            "ahk": "",
+            "debounce": 0,
+            "activated": false,
+            "time": 0,
+            "fn": null
+        }
+    }
 }

@@ -117,7 +117,7 @@
               <div class="row align-items-center p-0 m-0">
                 <div class="col-auto p-0">
                   <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" v-model="binding.advance">
+                    <input class="form-check-input" type="checkbox" role="switch" v-model="binding.simplified">
                     <!-- <label class="form-check-label">☰⎯</label> -->
                   </div>
                 </div>
@@ -131,12 +131,12 @@
             <div class="d-grid gap-2 card-body blend-shapes-items">
 
               <!-- Advance Bindings -->
-              <div class="row" v-show="(binding.advance)">
+              <div class="row" v-show="!(binding.simplified)">
                 <div class="col-sm-6">
                   <div class="card text-center">
                     <div class="card-body">
                       <h6 class="card-title"
-                        :class="{ 'text-success': ((binding.start.activated) && (predicting)) }">
+                        :class="{ 'text-success': ((binding.advance.start.activated) && (predicting)) }">
                         {{ translations[settings.language].START }}
                       </h6>
                       <div class="my-3"></div>
@@ -144,8 +144,8 @@
                         <label class="form-label">
                           {{ translations[settings.language].JAVASCRIPT_EXPRESSION }}
                         </label>
-                        <input class="form-control" :class="{'is-invalid': !(binding.start.fn)}" spellcheck="false"
-                          @change="logicChanged(binding.start)" v-model="binding.start.logic">
+                        <input class="form-control" :class="{'is-invalid': !(binding.advance.start.fn)}" spellcheck="false"
+                          @change="logicChanged(binding.advance.start)" v-model="binding.advance.start.logic">
                         <div class="invalid-feedback">
                           {{ translations[settings.language].INVALID_EXPRESSION }}
                         </div>
@@ -155,7 +155,7 @@
                         <label class="form-label">
                           {{ translations[settings.language].SENDINPUT_EXPRESSION }}
                         </label>
-                        <input class="form-control" spellcheck="false" v-model="binding.start.ahk">
+                        <input class="form-control" spellcheck="false" v-model="binding.advance.start.ahk">
                         <div class="invalid-feedback">
                           <!-- Please enter a message in the textarea. :class="{is-invalid: (binding.start.fn)}" -->
                         </div>
@@ -163,9 +163,9 @@
                       <div class="my-3"></div>
                       <div class="mb-3 text-start">
                         <label class="form-label">{{ translations[settings.language].DEBOUNCE }}
-                          ({{binding.start.debounce}} {{ translations[settings.language].MILLISECONDS }})</label>
+                          ({{binding.advance.start.debounce}} {{ translations[settings.language].MILLISECONDS }})</label>
                         <input type="range" class="form-range" min="0" max="1000" step="50"
-                          v-model="binding.start.debounce">
+                          v-model="binding.advance.start.debounce">
                       </div>
                     </div>
                   </div>
@@ -174,7 +174,7 @@
                   <div class="card text-center">
                     <div class="card-body">
                       <h6 class="card-title"
-                        :class="{ 'text-success': ((binding.stop.activated) && (predicting)) }">
+                        :class="{ 'text-success': ((binding.advance.stop.activated) && (predicting)) }">
                         {{ translations[settings.language].STOP }}
                       </h6>
                       <div class="my-3"></div>
@@ -182,8 +182,8 @@
                         <label class="form-label">
                           {{ translations[settings.language].JAVASCRIPT_EXPRESSION }}
                         </label>
-                        <input class="form-control" :class="{'is-invalid': !(binding.stop.fn)}" spellcheck="false"
-                          @change="logicChanged(binding.stop)" v-model="binding.stop.logic">
+                        <input class="form-control" :class="{'is-invalid': !(binding.advance.stop.fn)}" spellcheck="false"
+                          @change="logicChanged(binding.advance.stop)" v-model="binding.advance.stop.logic">
                         <div class="invalid-feedback">
                           {{ translations[settings.language].INVALID_EXPRESSION }}
                         </div>
@@ -193,7 +193,7 @@
                         <label class="form-label">
                           {{ translations[settings.language].SENDINPUT_EXPRESSION }}
                         </label>
-                        <input class="form-control" spellcheck="false" v-model="binding.stop.ahk">
+                        <input class="form-control" spellcheck="false" v-model="binding.advance.stop.ahk">
                         <div class="invalid-feedback">
                           <!-- Please enter a message in the textarea. -->
                         </div>
@@ -201,9 +201,9 @@
                       <div class="my-3"></div>
                       <div class="mb-3 text-start">
                         <label class="form-label">{{ translations[settings.language].DEBOUNCE }}
-                          ({{binding.stop.debounce}} {{ translations[settings.language].MILLISECONDS }})</label>
+                          ({{binding.advance.stop.debounce}} {{ translations[settings.language].MILLISECONDS }})</label>
                         <input type="range" class="form-range" min="0" max="1000" step="50"
-                          v-model="binding.stop.debounce">
+                          v-model="binding.advance.stop.debounce">
                       </div>
                     </div>
                   </div>
@@ -211,19 +211,19 @@
               </div>
               <!-- Advance Bindings -->
 
-              <!-- Basic Bindings -->
-              <div class="row" v-show="!(binding.advance)">
+              <!-- Simple Bindings -->
+              <div class="row" v-show="(binding.simplified)">
                 <div class="col slider-container align-items-center">
                   <input type="range" class="custom-form-range" min="0" max="100"
-                    v-model="binding.blendshapes[0].threshold">
+                    v-model="binding.simple.threshold">
                   <div class="progress">
                     <div class="progress-bar bg-success" role="progressbar"
-                      :style="'width: ' + mp.bs[binding.blendshapes[0].name] + '%;'"></div>
+                      :style="'width: ' + mp.bs[binding.simple.blendshape] + '%;'"></div>
                   </div>
                   <div class="my-3"></div>
                   <div class="row">
                     <div class="col-4">
-                      <select class="form-select" v-model="binding.blendshapes[0].name">
+                      <select class="form-select" v-model="binding.simple.blendshape">
                         <option value="_neutral">_neutral</option>
                         <option value="browDownLeft">browDownLeft</option>
                         <option value="browDownRight">browDownRight</option>
@@ -279,10 +279,10 @@
                       </select>
                     </div>
                     <div class="col-4">
-                      <input class="form-control" spellcheck="false" v-model="binding.blendshapes[0].ahk.start">
+                      <input class="form-control" spellcheck="false" v-model="binding.simple.ahk.start">
                     </div>
                     <div class="col-4">
-                      <input class="form-control" spellcheck="false" v-model="binding.blendshapes[0].ahk.stop">
+                      <input class="form-control" spellcheck="false" v-model="binding.simple.ahk.stop">
                     </div>
                   </div>
                 </div>

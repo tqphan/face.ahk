@@ -179,7 +179,7 @@ const application = createApp({
         removeProfile() {
             try {
                 this.app.profiles.items.splice(this.app.profiles.selection, 1);
-                this.app.profiles.selection = this.app.profiles.selection - 1 < 0 ? 0 : this.app.profiles.selection - 1
+                this.app.profiles.selection = this.app.profiles.selection - 1 < 0 ? 0 : this.app.profiles.selection - 1;
             } catch (error) {
                 console.error(error);
             }
@@ -187,7 +187,7 @@ const application = createApp({
         createBinding() {
             try {
                 const b = structuredClone(binding);
-                this.app.profiles.items[this.app.profiles.selection].bindings.push(b)
+                this.app.profiles.items[this.app.profiles.selection].bindings.push(b);
             } catch (error) {
                 console.error(error);
             }
@@ -219,16 +219,14 @@ const application = createApp({
         resetProfiles() {
             this.app.profiles.items.forEach((item) => {
                 item.bindings.forEach((binding) => {
-                    binding.started = false;
-                    binding.start.time = 0;
-                    binding.start.activated = false;
-                    binding.stop.time = 0;
-                    binding.stop.activated = true;
-                    this.parseLogic(binding.start);
-                    this.parseLogic(binding.stop);
-                    binding.blendshapes.forEach((bs) => {
-                        bs.started = false;
-                    });
+                    binding.simple.started = false;
+                    binding.advance.started = false;
+                    binding.advance.start.time = 0;
+                    binding.advance.start.activated = false;
+                    binding.advance.stop.time = 0;
+                    binding.advance.stop.activated = true;
+                    this.parseLogic(binding.advance.start);
+                    this.parseLogic(binding.advance.stop);
                 });
             });
         },
@@ -289,29 +287,27 @@ const application = createApp({
 
             return binding.activated;
         },
-        processBasicBindings(binding, results) {
-            binding.blendshapes.forEach((bs) => {
-                if (bs.started) {
-                    if (bs.threshold < results[bs.name]) {
-                        window.chrome?.webview?.postMessage(bs.ahk.start);
-                        bs.started = false;
-                    }
-                } else {
-                    if (bs.threshold > results[bs.name]) {
-                        window.chrome?.webview?.postMessage(bs.ahk.stop);
-                        bs.started = true;
-                    }
+        processSimpleBindings(binding, results) {
+            if (binding.started) {
+                if (binding.threshold < results[binding.blendshape]) {
+                    window.chrome?.webview?.postMessage(binding.ahk.start);
+                    binding.started = false;
                 }
-            });
+            } else {
+                if (binding.threshold > results[binding.blendshape]) {
+                    window.chrome?.webview?.postMessage(binding.ahk.stop);
+                    binding.started = true;
+                }
+            }
         },
         processBindings(bindings, results, time) {
             bindings?.forEach((binding) => {
-                if (binding.advance) {
-                    this.processAdvanceBindings(binding.start, results, time);
-                    this.processAdvanceBindings(binding.stop, results, time);
+                if (binding.simplified) {
+                    this.processSimpleBindings(binding.simple, results);
                 }
                 else {
-                    this.processBasicBindings(binding, results);
+                    this.processAdvanceBindings(binding.advance.start, results, time);
+                    this.processAdvanceBindings(binding.advance.stop, results, time);
                 }
                 // if(!binding.started) {
                 //     binding.started = this.processBinding(binding.start, results, time)
