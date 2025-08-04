@@ -219,7 +219,7 @@ const application = createApp({
         resetProfiles() {
             this.app.profiles.items.forEach((item) => {
                 item.bindings.forEach((binding) => {
-                    binding.simple.started = false;
+                    binding.simple.activated = false;
                     binding.advance.started = false;
                     binding.advance.start.time = 0;
                     binding.advance.start.activated = false;
@@ -249,7 +249,7 @@ const application = createApp({
         logicChanged(b) {
             this.parseLogic(b);
         },
-        ffn(f, r) {
+        evaluate(f, r) {
             const ret = f(r);
             if (ret instanceof Error)
                 return false;
@@ -258,7 +258,7 @@ const application = createApp({
         },
         processAdvanceBindings(binding, results, time) {
             // Check if binding function is valid
-            const validity = binding.fn && this.ffn(binding.fn, results);
+            const validity = binding.fn && this.evaluate(binding.fn, results);
 
             if (validity) {
                 // Only process if not already activated
@@ -288,15 +288,15 @@ const application = createApp({
             return binding.activated;
         },
         processSimpleBindings(binding, results) {
-            if (binding.started) {
+            if (binding.activated) {
                 if (binding.threshold < results[binding.blendshape]) {
                     window.chrome?.webview?.postMessage(binding.ahk.start);
-                    binding.started = false;
+                    binding.activated = false;
                 }
             } else {
                 if (binding.threshold > results[binding.blendshape]) {
                     window.chrome?.webview?.postMessage(binding.ahk.stop);
-                    binding.started = true;
+                    binding.activated = true;
                 }
             }
         },
@@ -320,6 +320,4 @@ const application = createApp({
     }
 });
 
-const vm = application.mount("#app");
-
-window.app = vm;
+window.app = application.mount("#app");

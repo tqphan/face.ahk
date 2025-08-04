@@ -9,6 +9,8 @@
         "THEME": "Theme",
         "THEME_LIGHT": "Light",
         "THEME_DARK": "Dark",
+        "LANGUAGE": "Language",
+        "LANGUAGE_ENGLISH": "English",
         "TRACKING_CONFIDENCE": "Minimum tracking confidence",
         "PRESENCE_CONFIDENCE": "Minimum face presence confidence",
         "DETECTION_CONFIDENCE": "Minimum face detection confidence",

@@ -325,6 +325,15 @@
                     <option value="dark">{{ translations[settings.language].THEME_DARK}}</option>
                   </select>
                 </div>
+                <!-- Language Dropdown -->
+                <div class="mb-4">
+                  <label for="languageSelect" class="form-label">
+                    {{ translations[settings.language].LANGUAGE }}
+                  </label>
+                  <select class="form-select" v-model="settings.language" @change="applyTheme">
+                    <option value="en">{{ translations[settings.language].LANGUAGE_ENGLISH }}</option>
+                  </select>
+                </div>
                 <div class="mb-4">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" v-model="settings['auto.start.prediction']">
