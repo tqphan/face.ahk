@@ -16,6 +16,7 @@ import samples from "../json/blendshapes.samples.json" with { type: "json" };
 import profiles from "../json/user.profiles.json" with { type: "json" };
 import settings from "../json/user.settings.json" with { type: "json" };
 import translations from "../json/translations.json" with { type: "json" };
+import version from "../json/version.json" with { type: "json" };
 
 const json = { settings, translations };
 
@@ -26,8 +27,9 @@ const application = createApp({
         const predicting = ref(false);
         const settings = ref(structuredClone(json.settings));
         const translations = ref(structuredClone(json.translations));
+        const updateAvailable = ref(false);
         return {
-            app, mp: mediapipe, predicting, settings, translations
+            app, mp: mediapipe, predicting, settings, translations, updateAvailable
         };
     },
     async mounted() {
@@ -131,8 +133,28 @@ const application = createApp({
             }
             this.predicting = !this.predicting;
         },
+        async checkUpdates() {
+            // TODO: Implement update checking logic
+            try {
+                const response = await fetch("https://raw.githubusercontent.com/tqphan/face.ahk/refs/heads/main/src/res/json/version.json");
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const remote = await response.json();
+                const local = version.patch;
+                if (remote.patch > local) {
+                    this.updateAvailable = true;
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        },
         applyTheme() {
             document.body.setAttribute('data-bs-theme', this.settings.theme);
+        },
+        themeChanged(event) {
+            this.applyTheme();
+            ahk.SetDarkMode(this.settings.theme === "dark");
         },
         testing() {
             console.log("69");
@@ -233,11 +255,11 @@ const application = createApp({
         parseLogic(item) {
             try {
                 if (item.logic) {
-                    const f = filtrex.compileExpression(item.logic, {
+                    const fr = filtrex.compileExpression(item.logic, {
                         customProp: filtrex.useOptionalChaining
                     });
-                    const ret = f(samples);
-                    ret instanceof Error ? item.fn = null : item.fn = f;
+                    const ret = fr(samples);
+                    ret instanceof Error ? item.fn = null : item.fn = fr;
                 }
                 else
                     item.fn = null;
@@ -246,10 +268,10 @@ const application = createApp({
                 item.fn = null;
             }
         },
-        logicChanged(b) {
-            this.parseLogic(b);
+        logicChanged(value) {
+            this.parseLogic(value);
         },
-        evaluate(f, r) {
+        evaluateLogic(f, r) {
             const ret = f(r);
             if (ret instanceof Error)
                 return false;
@@ -258,7 +280,7 @@ const application = createApp({
         },
         processAdvanceBindings(binding, results, time) {
             // Check if binding function is valid
-            const validity = binding.fn && this.evaluate(binding.fn, results);
+            const validity = binding.fn && this.evaluateLogic(binding.fn, results);
 
             if (validity) {
                 // Only process if not already activated
@@ -270,12 +292,12 @@ const application = createApp({
                             binding.time = time;
                         } else if (time - binding.time > binding.debounce) {
                             // Debounce period elapsed - activate
-                            window.chrome?.webview?.postMessage(binding.ahk);
+                            ahk.SimulateInput(binding.ahk, this.settings["allow.input.simulation"]);
                             binding.activated = true;
                         }
                     } else {
                         // Immediate activation for non-debounced bindings
-                        window.chrome?.webview?.postMessage(binding.ahk);
+                        ahk.SimulateInput(binding.ahk, this.settings["allow.input.simulation"]);
                         binding.activated = true;
                     }
                 }
@@ -290,12 +312,12 @@ const application = createApp({
         processSimpleBindings(binding, results) {
             if (binding.activated) {
                 if (binding.threshold < results[binding.blendshape]) {
-                    window.chrome?.webview?.postMessage(binding.ahk.start);
+                    ahk.SimulateInput(binding.ahk.start, this.settings["allow.input.simulation"]);
                     binding.activated = false;
                 }
             } else {
                 if (binding.threshold > results[binding.blendshape]) {
-                    window.chrome?.webview?.postMessage(binding.ahk.stop);
+                    ahk.SimulateInput(binding.ahk.stop, this.settings["allow.input.simulation"]);
                     binding.activated = true;
                 }
             }

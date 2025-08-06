@@ -11,9 +11,9 @@
         "THEME_DARK": "Dark",
         "LANGUAGE": "Language",
         "LANGUAGE_ENGLISH": "English",
-        "TRACKING_CONFIDENCE": "Minimum tracking confidence",
-        "PRESENCE_CONFIDENCE": "Minimum face presence confidence",
-        "DETECTION_CONFIDENCE": "Minimum face detection confidence",
+        "TRACKING_CONFIDENCE": "Minimum tracking confidence:",
+        "PRESENCE_CONFIDENCE": "Minimum face presence confidence:",
+        "DETECTION_CONFIDENCE": "Minimum face detection confidence:",
         "START": "Start",
         "STOP": "Stop",
         "CLOSE": "Close",
@@ -31,11 +31,12 @@
         "TOGGLE_PREDICTIONS": "Toggle Predictions",
         "WEBCAM_OPACITY": "Webcam Opacity",
         "LANDMARKS_OPACITY": "Landmarks Opacity",
-        "AUTO_START_PREDICTIONS": "Automatically start prediction",
-        "AUTO_START_WITH_WINDOWS": "Automatically start with Windows",
-        "AUTO_SAVE_SETTINGS": "Automatically save settings",
-        "AUTO_SAVE_PROFILES": "Automatically save profiles",
-        "RUN_ON_SECURED_DESKTOP": "Run on Secured Desktop",
-        "ALLOW_INPUT_SIMULATION": "Allow input simulation on this window"
+        "AUTO_START_PREDICTIONS": "Automatically start prediction.",
+        "AUTO_START_WITH_WINDOWS": "Automatically start with Windows.",
+        "AUTO_SAVE_SETTINGS": "Automatically save settings.",
+        "AUTO_SAVE_PROFILES": "Automatically save profiles.",
+        "RUN_ON_SECURED_DESKTOP": "Run on Secured Desktop.",
+        "ALLOW_INPUT_SIMULATION": "Allow input simulation on this window.",
+        "UPDATE_AVAILABLE": "Update available!"
     }
 }

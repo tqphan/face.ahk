@@ -12,6 +12,12 @@ class App {
 	static PROFILE_PATH := A_ScriptDir "\res\json\"
 	static SETTINGS_NAME := "user.settings.json"
 	static SETTINGS_PATH := A_ScriptDir "\res\json\"
+	static SHORTCUT_LINK := A_Startup "\" A_ScriptName ".lnk"
+	static INSTALL_DIRECTORY := RegRead("HKLM\SOFTWARE\AutoHotkey", "InstallDir", "")
+	static SHORTCUT_TARGET := (A_PtrSize = 8) ? App.INSTALL_DIRECTORY "\v2\AutoHotkey64_UIA.exe" : App.INSTALL_DIRECTORY "\v2\AutoHotkey32_UIA.exe"
+	static SHORTCUT_DESCRIPTION := A_ScriptName
+	static SHORTCUT_ICON := A_ScriptDir "\favicon.ico"
+	static SHORTCUT_ARGUMENTS := '"' A_ScriptFullPath '"'
 }
 
 TraySetIcon("favicon.ico")
@@ -28,6 +34,8 @@ wv.CoreWebView2.add_WebMessageReceived(WebView2.Handler(WebMessageReceivedEventH
 wv.CoreWebView2.SetVirtualHostNameToFolderMapping(App.HOST, A_ScriptDir, 1)
 wv.CoreWebView2.AddHostObjectToScript('SaveProfiles', SaveProfiles)
 wv.CoreWebView2.AddHostObjectToScript('SaveSettings', SaveSettings)
+wv.CoreWebView2.AddHostObjectToScript('SimulateInput', SimulateInput)
+wv.CoreWebView2.AddHostObjectToScript('SetDarkMode', SetDarkMode)
 wv.CoreWebView2.InjectAhkComponent()
 wv.CoreWebView2.Navigate(App.URL)
 
@@ -40,6 +48,12 @@ WebMessageReceivedEventHandler(handler, ICoreWebView2, WebMessageReceivedEventAr
 		return
 	}
 	try Send(msg)
+}
+
+SimulateInput(content, allow) {
+	if (WinActive("ahk_id" ui.Hwnd) && !allow)
+		return
+	try Send(content)
 }
 
 SaveProfiles(content) {
@@ -70,22 +84,20 @@ SetWindowDarkMode(hwnd, enable := true) {
 	}
 }
 
+SetDarkMode(enabled) {
+	SetWindowDarkMode(ui.Hwnd, enabled)
+}
+
 CreateShortcut() {
 	try {
-		; Get the current script's full path
-		scriptPath := A_ScriptFullPath
+		if (FileExist(App.SHORTCUT_LINK)) {
+			FileDelete(App.SHORTCUT_LINK)
+		}
+		FileCreateShortcut(App.SHORTCUT_TARGET, App.SHORTCUT_LINK, 
+			A_ScriptDir, App.SHORTCUT_ARGUMENTS, 
+			App.SHORTCUT_DESCRIPTION, App.SHORTCUT_ICON)
 
-		; Get the startup folder path
-		startupFolder := A_Startup
-
-		; Create shortcut name based on script name (keep extension)
-		scriptName := A_ScriptName
-		shortcutPath := startupFolder . "\" . scriptName . ".lnk"
-
-		; Create the shortcut
-		FileCreateShortcut(scriptPath, shortcutPath, A_ScriptDir, "", "AutoHotkey Script: " . scriptName)
-
-		return FileExist(shortcutPath) ? true : false
+		return FileExist(App.SHORTCUT_LINK) ? true : false
 	}
 	catch as err {
 		MsgBox(err.Message)
@@ -94,44 +106,23 @@ CreateShortcut() {
 }
 
 RemoveShortcut() {
-    try {
-        ; Get the current script's full path
-        scriptPath := A_ScriptFullPath
-        
-        ; Get the startup folder path
-        startupFolder := A_Startup
-        
-        ; Create shortcut name based on script name (keep extension)
-        scriptName := A_ScriptName
-        shortcutPath := startupFolder . "\" . scriptName . ".lnk"
-        
-        ; Check if shortcut exists
-        if (!FileExist(shortcutPath)) {
-            return true ; Already doesn't exist
-        }
-        
-        ; Verify this is the correct shortcut by checking its target
-        if (VerifyShortcut(shortcutPath, scriptPath)) {
-            FileDelete(shortcutPath)
-            return !FileExist(shortcutPath) ; Return true if successfully deleted
-        } else {
-            MsgBox("Shortcut exists but points to a different file. Not removing for safety.", "Warning", "Icon!")
-            return false
-        }
-    }
-    catch as err {
-        MsgBox("Error removing startup shortcut: " . err.Message, "Error", "Icon!")
-        return false
-    }
+	try {
+		if (FileExist(App.SHORTCUT_LINK)) {
+			FileDelete(App.SHORTCUT_LINK)
+			return true
+		}
+		return false
+	}
+	catch as err {
+		MsgBox(err.Message)
+		return false
+	}
 }
 
-VerifyShortcut(shortcutPath, expectedTarget) {
+ValidateShortcut() {
     try {
-        ; Use FileGetShortcut to read shortcut properties
-        FileGetShortcut(shortcutPath, &targetPath)
-        
-        ; Compare paths (case-insensitive)
-        return (StrLower(targetPath) = StrLower(expectedTarget))
+        FileGetShortcut(App.SHORTCUT_LINK, &target)
+        return (StrLower(target) = StrLower(App.SHORTCUT_TARGET))
     }
     catch {
         return false

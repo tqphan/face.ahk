@@ -15,7 +15,8 @@
 						"ahk": {
 							"start": "{f14 down}",
 							"stop": "{f14 up}"
-						}
+						},
+						"activated": true
 					},
 					"advance": {
 						"started": false,
@@ -46,7 +47,8 @@
 						"ahk": {
 							"start": "{f19 down}",
 							"stop": "{f19 up}"
-						}
+						},
+						"activated": true
 					},
 					"advance": {
 						"started": false,
@@ -62,7 +64,7 @@
 							"logic": "",
 							"ahk": "",
 							"debounce": 0,
-							"activated": false,
+							"activated": true,
 							"time": 0,
 							"fn": null
 						}
@@ -79,7 +81,8 @@
 						"ahk": {
 							"start": "{f22 down}",
 							"stop": "{f22 up}"
-						}
+						},
+						"activated": true
 					},
 					"advance": {
 						"started": false,
@@ -95,7 +98,7 @@
 							"logic": "",
 							"ahk": "",
 							"debounce": 0,
-							"activated": false,
+							"activated": true,
 							"time": 0,
 							"fn": null
 						}
@@ -107,12 +110,13 @@
 					"enabled": true,
 					"simple": {
 						"blendshape": "mouthPucker",
-						"threshold": 50,
+						"threshold": "67",
 						"started": true,
 						"ahk": {
 							"start": "{f13 down}",
 							"stop": "{f13 up}"
-						}
+						},
+						"activated": true
 					},
 					"advance": {
 						"started": false,
@@ -128,7 +132,7 @@
 							"logic": "",
 							"ahk": "",
 							"debounce": 0,
-							"activated": false,
+							"activated": true,
 							"time": 0,
 							"fn": null
 						}
