@@ -156,6 +156,9 @@ const application = createApp({
             this.applyTheme();
             ahk.SetDarkMode(this.settings.theme === "dark");
         },
+        shortcutChanged() {
+            ahk.SetShortcut(this.settings["auto.start.with.windows"]);
+        },
         testing() {
             console.log("69");
             return 5;

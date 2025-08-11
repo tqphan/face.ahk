@@ -36,6 +36,7 @@ wv.CoreWebView2.AddHostObjectToScript('SaveProfiles', SaveProfiles)
 wv.CoreWebView2.AddHostObjectToScript('SaveSettings', SaveSettings)
 wv.CoreWebView2.AddHostObjectToScript('SimulateInput', SimulateInput)
 wv.CoreWebView2.AddHostObjectToScript('SetDarkMode', SetDarkMode)
+wv.CoreWebView2.AddHostObjectToScript('SetShortcut', SetShortcut)
 wv.CoreWebView2.InjectAhkComponent()
 wv.CoreWebView2.Navigate(App.URL)
 
@@ -127,6 +128,16 @@ ValidateShortcut() {
     catch {
         return false
     }
+}
+
+SetShortcut(enabled) {
+	if (enabled) {
+		if (!FileExist(App.SHORTCUT_LINK) || !ValidateShortcut()) {
+			return CreateShortcut()
+		}
+	} else {
+		RemoveShortcut()
+	}
 }
 
 Sizing(GuiObj, MinMax, Width, Height) {

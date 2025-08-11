@@ -1,10 +1,10 @@
 {
 	"theme": "dark",
 	"language": "en",
-	"webcam.opacity": 0,
+	"webcam.opacity": "0",
 	"landmarks.opacity": 1,
 	"auto.start.prediction": true,
-	"auto.start.with.windows": false,
+	"auto.start.with.windows": true,
 	"run.on.secured.desktop": false,
 	"allow.key.simmulation.on.main.window": true,
 	"auto.save.settings": true,
