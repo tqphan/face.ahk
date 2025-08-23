@@ -5,7 +5,7 @@
     "simple": {
         "blendshape": "_neutral",
         "threshold": 50,
-        "activated": false,
+        "activated": true,
         "ahk": {
             "start": "",
             "stop": ""
@@ -25,7 +25,7 @@
             "logic": "",
             "ahk": "",
             "debounce": 0,
-            "activated": false,
+            "activated": true,
             "time": 0,
             "fn": null
         }

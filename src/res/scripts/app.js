@@ -244,7 +244,7 @@ const application = createApp({
         resetProfiles() {
             this.app.profiles.items.forEach((item) => {
                 item.bindings.forEach((binding) => {
-                    binding.simple.activated = false;
+                    binding.simple.activated = true;
                     binding.advance.started = false;
                     binding.advance.start.time = 0;
                     binding.advance.start.activated = false;
