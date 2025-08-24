@@ -51,7 +51,7 @@
 
                 <div class="row mb-3">
                   <div class="col">
-                    <select class="form-select" size="8" @change="profileChanged" aria-label="select profile">
+                    <select class="form-select" ref="profile-selection" size="8" @change="profileChanged" aria-label="select profile">
                       <option v-for="(profile, index) in app.profiles.items" :value="index"
                         :selected="index === app.profiles.selection">
                         {{ profile.name }}
@@ -92,9 +92,9 @@
                 <div class="row mb-3">
                   <div class="col">
                     <div id="liveView" class="videoView">
-                      <video id="input_video" ref="input_video" :style="{ opacity: settings['webcam.opacity'] }"
+                      <video id="input-video" ref="input-video" :style="{ opacity: settings['webcam.opacity'] }"
                         autoplay></video>
-                      <canvas id="output_canvas" ref="output_canvas" class="output_canvas"
+                      <canvas id="output-canvas" ref="output-canvas" class="output-canvas"
                         :style="{ opacity: settings['landmarks.opacity'] }"></canvas>
                       </canvas>
                     </div>

@@ -1,5 +1,5 @@
 {
-	"selection": "1",
+	"selection": 0,
 	"items": [
 		{
 			"name": "chair - light",
@@ -42,7 +42,7 @@
 					"enabled": true,
 					"simple": {
 						"blendshape": "eyeLookOutLeft",
-						"threshold": "71",
+						"threshold": "77",
 						"started": true,
 						"ahk": {
 							"start": "{f19 down}",
@@ -76,7 +76,7 @@
 					"enabled": true,
 					"simple": {
 						"blendshape": "eyeLookOutRight",
-						"threshold": "73",
+						"threshold": "67",
 						"started": true,
 						"ahk": {
 							"start": "{f22 down}",
@@ -215,7 +215,7 @@
 					"enabled": true,
 					"simple": {
 						"blendshape": "eyeLookOutRight",
-						"threshold": 50,
+						"threshold": "23",
 						"activated": true,
 						"ahk": {
 							"start": "{f22 down}",
@@ -252,7 +252,7 @@
 						"activated": true,
 						"ahk": {
 							"start": "{rbutton down}",
-							"stop": "{rbutton down}"
+							"stop": " {rbutton up}"
 						}
 					},
 					"advance": {

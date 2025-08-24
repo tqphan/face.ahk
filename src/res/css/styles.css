@@ -22,7 +22,7 @@ video {
   height: auto;
 }
 
-.output_canvas {
+.output-canvas {
   transform: rotateY(180deg);
   -webkit-transform: rotateY(180deg);
   z-index: 10;

@@ -33,12 +33,12 @@ const application = createApp({
         };
     },
     async mounted() {
-        const ctx = this.$refs.output_canvas.getContext("2d");
+        const ctx = this.$refs["output-canvas"].getContext("2d");
         this.mp.drawingUtils = new DrawingUtils(ctx);
         this.applyTheme();
         this.loadSettings();
         this.loadProfiles();
-        this.$refs.input_video.requestVideoFrameCallback(this.predict);
+        this.$refs["input-video"].requestVideoFrameCallback(this.predict);
         await this.init();
     },
     methods: {
@@ -74,15 +74,15 @@ const application = createApp({
             let results;
             const time = performance.now();
             try {
-                results = this.mp.faceLandmarker.detectForVideo(this.$refs.input_video, time);
+                results = this.mp.faceLandmarker.detectForVideo(this.$refs["input-video"], time);
             } catch (error) {
                 console.error(error);
-                this.$refs.input_video.requestVideoFrameCallback(this.predict);
+                this.$refs["input-video"].requestVideoFrameCallback(this.predict);
                 return;
             }
-            const rect = this.$refs.output_canvas.parentNode.getBoundingClientRect();
-            this.$refs.output_canvas.width = rect.width;
-            this.$refs.output_canvas.height = rect.height;
+            const rect = this.$refs["output-canvas"].parentNode.getBoundingClientRect();
+            this.$refs["output-canvas"].width = rect.width;
+            this.$refs["output-canvas"].height = rect.height;
 
             results?.faceBlendshapes[0]?.categories?.forEach((shape) => {
                 this.mp.bs[shape.categoryName] = Math.round(shape.score * 100);
@@ -104,11 +104,11 @@ const application = createApp({
                 this.mp.drawingUtils.drawConnectors(landmarks, FaceLandmarker.FACE_LANDMARKS_LEFT_IRIS, { color: "#00ffff" });
             });
 
-            this.$refs.input_video.requestVideoFrameCallback(this.predict);
+            this.$refs["input-video"].requestVideoFrameCallback(this.predict);
         },
         toggleWebcam() {
             if (this.predicting) {
-                const srcObject = this.$refs.input_video.srcObject;
+                const srcObject = this.$refs["input-video"].srcObject;
                 if (srcObject && typeof srcObject.getTracks === "function") {
                     let tracks = srcObject.getTracks();
                     tracks.forEach(track => {
@@ -125,7 +125,7 @@ const application = createApp({
                 navigator.mediaDevices
                     .getUserMedia(constraints)
                     .then(stream => {
-                        this.$refs.input_video.srcObject = stream;
+                        this.$refs["input-video"].srcObject = stream;
                     })
                     .catch(error => {
                         console.error(error);
