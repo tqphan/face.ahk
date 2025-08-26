@@ -1,7 +1,7 @@
 import {
     createApp,
     ref
-} from "../../lib/Vue/vue.esm-browser.js";
+} from "../../lib/Vue/vue.esm-browser.prod.js";
 
 import {
     FaceLandmarker,
