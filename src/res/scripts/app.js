@@ -186,7 +186,7 @@ const application = createApp({
         },
         profileChanged(event) {
             const value = event.target.value;
-            this.app.profiles.selection = value;
+            this.app.profiles.selection = parseInt(value);
         },
         createProfile() {
             try {
