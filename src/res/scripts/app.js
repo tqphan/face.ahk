@@ -7,7 +7,7 @@ import {
     FaceLandmarker,
     FilesetResolver,
     DrawingUtils
-} from "../../lib/MediaPipe/vision_bundle.js";
+} from "../../lib/MediaPipe/vision_bundle.mjs";
 
 import empty from "../json/empty.profile.json" with { type: "json" };
 import item from "../json/empty.item.json" with { type: "json" };
@@ -38,8 +38,9 @@ const application = createApp({
         this.applyTheme();
         this.loadSettings();
         this.loadProfiles();
-        this.$refs["input-video"].requestVideoFrameCallback(this.predict);
         await this.init();
+        // bind predict to this using an arrow wrapper so it keeps the component context
+        this.$refs["input-video"].requestVideoFrameCallback((time) => this.predict(time));
     },
     methods: {
         async init() {
@@ -52,16 +53,17 @@ const application = createApp({
                     baseOptions: {
                         modelAssetPath:
                             "../../lib/MediaPipe/face_landmarker.task",
-                        delegate: "GPU"
+                        delegate: "CPU"
                     },
                     outputFaceBlendshapes: true,
                     runningMode: "VIDEO",
                     numFaces: 1,
-                    minFaceDetectionConfidence: this.settings["detection.confidence"],
-                    minTrackingConfidence: this.settings["tracking.confidence"],
-                    minFacePresenceConfidence: this.settings["presence.confidence"]
+                    // minFaceDetectionConfidence: this.settings["detection.confidence"],
+                    // minTrackingConfidence: this.settings["tracking.confidence"],
+                    // minFacePresenceConfidence: this.settings["presence.confidence"]
                 }
             );
+            await this.mp.faceLandmarker.setOptions({ runningMode: "VIDEO" });
             if (!this.mp.faceLandmarker) {
                 console.log("Wait for faceLandmarker to load before clicking!");
                 return;

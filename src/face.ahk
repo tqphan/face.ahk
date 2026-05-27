@@ -3,7 +3,7 @@
 #Include .\lib\WebView2\webview2.ahk
 #InputLevel 1
 SendLevel 1
-
+ProcessSetPriority("H")
 class App {
 	static NAME := "face.ahk"
 	static HOST := "face.ahk.localhost"

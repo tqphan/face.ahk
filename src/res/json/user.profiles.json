@@ -42,7 +42,7 @@
 					"enabled": true,
 					"simple": {
 						"blendshape": "eyeLookOutLeft",
-						"threshold": "77",
+						"threshold": "76",
 						"started": true,
 						"ahk": {
 							"start": "{f19 down}",
@@ -110,7 +110,7 @@
 					"enabled": true,
 					"simple": {
 						"blendshape": "mouthPucker",
-						"threshold": "67",
+						"threshold": "74",
 						"started": true,
 						"ahk": {
 							"start": "{f13 down}",
@@ -144,11 +144,44 @@
 					"enabled": true,
 					"simple": {
 						"blendshape": "mouthSmileRight",
-						"threshold": 50,
+						"threshold": "65",
 						"activated": true,
 						"ahk": {
 							"start": "{f23 down}",
 							"stop": "{f23 up}"
+						}
+					},
+					"advance": {
+						"started": false,
+						"start": {
+							"logic": "",
+							"ahk": "",
+							"debounce": 0,
+							"activated": false,
+							"time": 0,
+							"fn": null
+						},
+						"stop": {
+							"logic": "",
+							"ahk": "",
+							"debounce": 0,
+							"activated": true,
+							"time": 0,
+							"fn": null
+						}
+					}
+				},
+				{
+					"name": "",
+					"simplified": true,
+					"enabled": true,
+					"simple": {
+						"blendshape": "mouthDimpleLeft",
+						"threshold": "13",
+						"activated": true,
+						"ahk": {
+							"start": "{f21 down}",
+							"stop": "{f21 up}"
 						}
 					},
 					"advance": {
@@ -456,6 +489,143 @@
 						"ahk": {
 							"start": "",
 							"stop": ""
+						}
+					},
+					"advance": {
+						"started": false,
+						"start": {
+							"logic": "",
+							"ahk": "",
+							"debounce": 0,
+							"activated": false,
+							"time": 0,
+							"fn": null
+						},
+						"stop": {
+							"logic": "",
+							"ahk": "",
+							"debounce": 0,
+							"activated": true,
+							"time": 0,
+							"fn": null
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "wasd",
+			"bindings": [
+				{
+					"name": "",
+					"simplified": true,
+					"enabled": true,
+					"simple": {
+						"blendshape": "browInnerUp",
+						"threshold": 50,
+						"activated": true,
+						"ahk": {
+							"start": "{w down}",
+							"stop": "{w up}"
+						}
+					},
+					"advance": {
+						"started": false,
+						"start": {
+							"logic": "",
+							"ahk": "",
+							"debounce": 0,
+							"activated": false,
+							"time": 0,
+							"fn": null
+						},
+						"stop": {
+							"logic": "",
+							"ahk": "",
+							"debounce": 0,
+							"activated": true,
+							"time": 0,
+							"fn": null
+						}
+					}
+				},
+				{
+					"name": "",
+					"simplified": true,
+					"enabled": true,
+					"simple": {
+						"blendshape": "eyeLookInLeft",
+						"threshold": "66",
+						"activated": true,
+						"ahk": {
+							"start": "{a down}",
+							"stop": "{a up}"
+						}
+					},
+					"advance": {
+						"started": false,
+						"start": {
+							"logic": "",
+							"ahk": "",
+							"debounce": 0,
+							"activated": false,
+							"time": 0,
+							"fn": null
+						},
+						"stop": {
+							"logic": "",
+							"ahk": "",
+							"debounce": 0,
+							"activated": true,
+							"time": 0,
+							"fn": null
+						}
+					}
+				},
+				{
+					"name": "",
+					"simplified": true,
+					"enabled": true,
+					"simple": {
+						"blendshape": "eyeLookInRight",
+						"threshold": "67",
+						"activated": true,
+						"ahk": {
+							"start": "{d down}",
+							"stop": "{d up}"
+						}
+					},
+					"advance": {
+						"started": false,
+						"start": {
+							"logic": "",
+							"ahk": "",
+							"debounce": 0,
+							"activated": false,
+							"time": 0,
+							"fn": null
+						},
+						"stop": {
+							"logic": "",
+							"ahk": "",
+							"debounce": 0,
+							"activated": true,
+							"time": 0,
+							"fn": null
+						}
+					}
+				},
+				{
+					"name": "",
+					"simplified": true,
+					"enabled": true,
+					"simple": {
+						"blendshape": "mouthPucker",
+						"threshold": 50,
+						"activated": true,
+						"ahk": {
+							"start": "{s down}",
+							"stop": "{s up}"
 						}
 					},
 					"advance": {
